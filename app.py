@@ -253,6 +253,28 @@ div[style*="background-color: white"] {
 
 </style>
 """, unsafe_allow_html=True)
+st.markdown("""
+<style>
+
+/* ==========================
+DEEP BACKGROUND (LIKE COGNIZANCE)
+========================== */
+body {
+    background: radial-gradient(
+        circle at 20% 30%,
+        rgba(99,102,241,0.15),
+        transparent 40%
+    ),
+    radial-gradient(
+        circle at 80% 70%,
+        rgba(34,211,238,0.12),
+        transparent 40%
+    ),
+    #020617 !important;
+}
+
+</style>
+""", unsafe_allow_html=True)
 
 import numpy as np
 import pandas as pd
