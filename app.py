@@ -1626,61 +1626,57 @@ with tab2:
 st.markdown("""
 <style>
 
+st.markdown("""
+<style>
+
 /* ==========================
-FOOTER
+COMPACT PREMIUM FOOTER
 ========================== */
 .footer {
-    margin-top: 60px;
-    padding: 30px 20px;
+    position: relative;
+    margin-top: 40px;
+
+    padding: 12px 10px;
 
     text-align: center;
 
-    background: linear-gradient(
-        135deg,
-        rgba(15,23,42,0.95),
-        rgba(2,6,23,0.95)
-    );
+    background: transparent;
 
-    border-top: 1px solid rgba(99,102,241,0.2);
+    border-top: 1px solid rgba(99,102,241,0.15);
 
-    backdrop-filter: blur(12px);
-
-    box-shadow: 0 -5px 30px rgba(0,0,0,0.5);
-}
-
-.footer-title {
-    font-size: 18px;
-    font-weight: 600;
-    color: #e0f2fe;
-}
-
-.footer-sub {
     font-size: 13px;
     color: #94a3b8;
-    margin-top: 6px;
 }
 
-.footer-highlight {
+/* TEXT */
+.footer span {
+    color: #e2e8f0;
+    font-weight: 500;
+}
+
+/* HIGHLIGHT NAME */
+.footer .highlight {
     background: linear-gradient(90deg,#6366f1,#22d3ee);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
+/* SUBTLE HOVER GLOW */
+.footer:hover {
+    border-top: 1px solid rgba(34,211,238,0.4);
+}
+
+/* REMOVE EXTRA SPACE BELOW */
+footer, .footer-container {
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+}
+
 </style>
 
 <div class="footer">
-
-    <div class="footer-title">
-        🧬 HPV EPIPRED
-    </div>
-
-    <div class="footer-sub">
-        AI-driven MHC-I Epitope Prediction Platform
-    </div>
-
-    <div class="footer-sub" style="margin-top:10px;">
-        Built with ❤️ by <span class="footer-highlight">Shamroz Abrar</span>
-    </div>
-
+    🧬 <span>HPV EPIPRED</span> • AI-based Epitope Prediction  
+    <br>
+    Built by <span class="highlight">Shamroz Ahmad</span>
 </div>
 """, unsafe_allow_html=True)
