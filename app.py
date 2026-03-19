@@ -1627,70 +1627,80 @@ with tab2:
 
         st.plotly_chart(fig, use_container_width=True)
     
-import pandas as pd
-
-st.markdown(f"""
+st.markdown("""
 <style>
 
 /* ==========================
 COMPACT PREMIUM FOOTER
 ========================== */
 
-.footer {{
+.footer {
     position: relative;
     margin-top: 40px;
     padding: 12px 10px;
-
     text-align: center;
-
     background: transparent;
-
     border-top: 1px solid rgba(99,102,241,0.15);
-
     font-size: 13px;
     color: #94a3b8;
+}
 
-    letter-spacing: 0.3px;
-}}
-
-/* TEXT */
-.footer span {{
+.footer span {
     color: #e2e8f0;
     font-weight: 500;
-}}
+}
 
-/* COPYRIGHT LINE */
-.footer-copy {{
-    margin-top: 4px;
-    font-size: 12px;
-    color: #64748b;
-}}
-
-/* HIGHLIGHT NAME */
-.footer .highlight {{
+.footer .highlight {
     background: linear-gradient(90deg,#6366f1,#22d3ee);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    font-weight: 600;
-}}
-
-/* HOVER EFFECT */
-.footer:hover {{
-    border-top: 1px solid rgba(34,211,238,0.4);
-}}
+}
 
 </style>
 
 <div class="footer">
+     <span>HPV EPIPRED</span> • AI-based Epitope Prediction  
+    <br>
+    Built by <span class="highlight">Shamroz Abrar</span>
+</div>
 
-    <div>
-         <span>HPV EPIPRED</span> • AI-based Epitope Prediction
-    </div>
+""", unsafe_allow_html=True)
 
-    <div class="footer-copy">
-        © {pd.Timestamp.now().year} <span class="highlight">Shamroz Abrar</span>. All rights reserved.
-    </div>
+st.markdown("""
+<style>
 
+/* ==========================
+COMPACT PREMIUM FOOTER
+========================== */
+
+.footer {
+    position: relative;
+    margin-top: 40px;
+    padding: 12px 10px;
+    text-align: center;
+    background: transparent;
+    border-top: 1px solid rgba(99,102,241,0.15);
+    font-size: 13px;
+    color: #94a3b8;
+}
+
+.footer span {
+    color: #e2e8f0;
+    font-weight: 500;
+}
+
+.footer .highlight {
+    background: linear-gradient(90deg,#6366f1,#22d3ee);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+</style>
+
+<div class="footer">
+    <span>HPV EPIPRED</span> • AI-based Epitope Prediction  
+    <br>
+    © 2026 <span class="highlight">Shamroz Abrar</span>. All rights reserved.
 </div>
 
 """, unsafe_allow_html=True)
