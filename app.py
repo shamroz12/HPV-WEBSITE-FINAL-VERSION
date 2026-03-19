@@ -35,294 +35,151 @@ h1{font-size:44px;}
 h2{font-size:32px;}
 h3{font-size:22px;}
 
-/* BUTTONS */
+/* ==========================
+BUTTONS
+========================== */
 .stButton > button{
     border-radius:12px;
     padding:8px 22px;
-    background:#6366f1;
+    background:linear-gradient(90deg,#6366f1,#22d3ee);
     color:white;
     border:none;
     transition:0.2s;
+    box-shadow:0 0 15px rgba(99,102,241,0.5);
 }
 
 .stButton > button:hover{
     transform:translateY(-2px);
-    box-shadow:0 6px 20px rgba(99,102,241,0.35);
+    box-shadow:0 0 25px rgba(34,211,238,0.8);
 }
 
-/* INPUT */
+/* DOWNLOAD BUTTON */
+.stDownloadButton > button{
+    background:linear-gradient(90deg,#6366f1,#22d3ee) !important;
+    color:white !important;
+    border-radius:12px;
+    padding:10px 22px;
+    border:none;
+    font-weight:600;
+}
+
+/* ==========================
+INPUT
+========================== */
 textarea, input{
     border-radius:12px;
     font-family:'JetBrains Mono', monospace;
+    background:#020617 !important;
+    color:#f8fafc !important;
 }
 
-/* TABLE */
+/* ==========================
+TABLE
+========================== */
 div[data-testid="stDataFrame"]{
     border-radius:14px;
-    background:rgba(255,255,255,0.04);
+    background:rgba(15,23,42,0.85);
+    border:1px solid rgba(99,102,241,0.2);
 }
 
-/* PLOT */
+/* ==========================
+PLOT
+========================== */
 .stPlotlyChart{
-    background:rgba(255,255,255,0.04);
+    background:rgba(15,23,42,0.85);
     border-radius:14px;
     padding:10px;
 }
 
-st.markdown("""
-<style>
+/* ==========================
+TEXT BOOST
+========================== */
+body, p, label, span {
+    color:#f8fafc !important;
+}
+
+/* ==========================
+TABS
+========================== */
+button[data-baseweb="tab"]{
+    background:rgba(99,102,241,0.15);
+    border-radius:10px;
+    padding:6px 14px;
+}
+
+button[data-baseweb="tab"]:hover{
+    background:rgba(99,102,241,0.35);
+}
+
+button[aria-selected="true"]{
+    background:linear-gradient(90deg,#6366f1,#22d3ee);
+    color:white !important;
+    box-shadow:0 0 12px rgba(99,102,241,0.6);
+}
 
 /* ==========================
 PREMIUM INTERPRETATION BOX
 ========================== */
-st.markdown("""
-<style>
-
-/* ==========================
-PREMIUM INTERPRETATION BOX
-========================== */
-.legend-box {
-
-    background: linear-gradient(
+.legend-box{
+    background:linear-gradient(
         135deg,
         rgba(15,23,42,0.95),
         rgba(2,6,23,0.95)
     );
-
-    border: 1px solid rgba(99,102,241,0.3);
-    border-radius: 16px;
-
-    padding: 20px;
-    margin-bottom: 20px;
-
-    backdrop-filter: blur(14px);
-
+    border:1px solid rgba(99,102,241,0.3);
+    border-radius:16px;
+    padding:20px;
+    margin-bottom:20px;
+    backdrop-filter:blur(14px);
     box-shadow:
         0 0 20px rgba(99,102,241,0.15),
         inset 0 0 12px rgba(255,255,255,0.03);
-
-    position: relative;
-    overflow: hidden;
+    position:relative;
+    overflow:hidden;
 }
 
-.legend-box::before {
-    content: "";
+/* TOP GLOW LINE */
+.legend-box::before{
+    content:"";
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:3px;
+    background:linear-gradient(90deg,#6366f1,#22d3ee,#a78bfa);
 }
 
-/* 🔥 TOP GLOW LINE */
-.legend-box::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 3px;
-
-    background: linear-gradient(
-        90deg,
-        #6366f1,
-        #22d3ee,
-        #a78bfa
-    );
-
-    opacity: 0.9;
+/* TITLE */
+.legend-title{
+    font-size:18px;
+    font-weight:700;
+    background:linear-gradient(90deg,#38bdf8,#a78bfa);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+    margin-bottom:12px;
 }
 
-/* ==========================
-TITLE (NOW PREMIUM)
-========================== */
-.legend-title {
+/* ITEMS */
+.legend-item{
+    color:#e2e8f0 !important;
+    font-size:14.5px;
+    line-height:1.8;
+    transition:0.2s;
+}
 
-    font-size: 18px;
-    font-weight: 700;
+.legend-item:hover{
+    transform:translateX(4px);
+    color:#f8fafc !important;
+}
 
-    background: linear-gradient(
-        90deg,
-        #38bdf8,
-        #a78bfa
-    );
-
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-
-    margin-bottom: 12px;
-    letter-spacing: 0.5px;
+.legend-item b{
+    color:#22d3ee;
 }
 
 /* ==========================
-TEXT ITEMS
+SPACING
 ========================== */
-.legend-item {
-
-    color: #e2e8f0 !important;
-    font-size: 14.5px;
-    line-height: 1.8;
-
-    padding-left: 6px;
-    transition: all 0.2s ease;
-}
-
-/* HOVER EFFECT */
-.legend-item:hover {
-    color: #f8fafc !important;
-    transform: translateX(4px);
-}
-
-/* BOLD HIGHLIGHT */
-.legend-item b {
-    color: #22d3ee;
-}
-
-/* ==========================
-SOFT GLOW ON HOVER
-========================== */
-.legend-box:hover {
-    box-shadow:
-        0 0 30px rgba(34,211,238,0.25),
-        inset 0 0 15px rgba(255,255,255,0.05);
-}
-
-/* ==========================
-ICON EMPHASIS
-========================== */
-.legend-title::before {
-    content: "✨ ";
-}
-
-</style>
-""", unsafe_allow_html=True)
-
-st.markdown("""
-<style>
-
-/* ==========================
-GLOBAL TEXT BOOST
-========================== */
-body, p, label, span {
-    color: #f8fafc !important;   /* pure bright white */
-}
-
-/* ==========================
-HEADINGS GLOW
-========================== */
-h1, h2, h3 {
-    color: #e0f2fe;
-    text-shadow: 0 0 12px rgba(56,189,248,0.25);
-}
-
-/* ==========================
-TABS (MAKE THEM POP)
-========================== */
-button[data-baseweb="tab"] {
-    background: rgba(99,102,241,0.15);
-    border-radius: 10px;
-    padding: 6px 14px;
-}
-
-button[data-baseweb="tab"]:hover {
-    background: rgba(99,102,241,0.35);
-}
-
-/* ==========================
-ACTIVE TAB
-========================== */
-button[aria-selected="true"] {
-    background: linear-gradient(90deg,#6366f1,#22d3ee);
-    color: white !important;
-    box-shadow: 0 0 12px rgba(99,102,241,0.6);
-}
-
-/* ==========================
-LEGEND BOX FIX
-========================== */
-.legend-box {
-    background: rgba(15,23,42,0.85) !important;
-    border: 1px solid rgba(99,102,241,0.4);
-    color: #e2e8f0 !important;
-    backdrop-filter: blur(10px);
-}
-
-/* ==========================
-TABLE IMPROVEMENT
-========================== */
-div[data-testid="stDataFrame"] {
-    background: rgba(15,23,42,0.85) !important;
-    border: 1px solid rgba(99,102,241,0.2);
-}
-
-/* ==========================
-PLOT CONTAINER
-========================== */
-.stPlotlyChart {
-    background: rgba(15,23,42,0.85) !important;
-    border: 1px solid rgba(99,102,241,0.2);
-}
-
-/* ==========================
-INPUT BOX FIX
-========================== */
-textarea {
-    background-color: #020617 !important;
-    color: #f8fafc !important;
-    border: 1px solid rgba(99,102,241,0.3);
-}
-
-/* ==========================
-BUTTON GLOW
-========================== */
-.stButton > button {
-    background: linear-gradient(90deg,#6366f1,#22d3ee);
-    box-shadow: 0 0 15px rgba(99,102,241,0.5);
-}
-
-.stButton > button:hover {
-    box-shadow: 0 0 25px rgba(34,211,238,0.8);
-}
-
-/* ==========================
-SECTION SPACING
-========================== */
-h2 {
-    margin-top: 25px;
-}
-
-/* DOWNLOAD BUTTON FIX */
-.stDownloadButton > button {
-
-    background: linear-gradient(
-        90deg,
-        #6366f1,
-        #22d3ee
-    ) !important;
-
-    color: white !important;
-
-    border-radius: 12px;
-    padding: 10px 22px;
-
-    border: none;
-    font-weight: 600;
-
-    box-shadow: 0 0 15px rgba(99,102,241,0.5);
-
-    transition: all 0.25s ease;
-}
-
-.stDownloadButton > button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 0 25px rgba(34,211,238,0.8);
-}
-
-.stDownloadButton > button:focus,
-.stDownloadButton > button:active {
-    background: linear-gradient(
-        90deg,
-        #6366f1,
-        #22d3ee
-    ) !important;
-
-    color: white !important;
-}
+h2{margin-top:25px;}
 
 </style>
 """, unsafe_allow_html=True)
