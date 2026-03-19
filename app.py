@@ -369,6 +369,42 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
+st.markdown("""
+<style>
+
+/* ==========================
+FIX: REMOVE EMPTY GREY BARS
+========================== */
+
+/* ONLY style blocks that have content */
+[data-testid="stVerticalBlock"] > div:has(*:not(:empty)) {
+
+    background: linear-gradient(
+        135deg,
+        rgba(15,23,42,0.85),
+        rgba(2,6,23,0.85)
+    );
+
+    border-radius: 18px;
+    padding: 18px;
+
+    border: 1px solid rgba(99,102,241,0.15);
+
+    box-shadow:
+        0 8px 30px rgba(0,0,0,0.4),
+        inset 0 0 10px rgba(255,255,255,0.02);
+
+    margin-bottom: 20px;
+}
+
+/* REMOVE EMPTY BLOCK STYLING */
+[data-testid="stVerticalBlock"] > div:empty {
+    display: none !important;
+}
+
+</style>
+""", unsafe_allow_html=True)
+
 
 import numpy as np
 import pandas as pd
