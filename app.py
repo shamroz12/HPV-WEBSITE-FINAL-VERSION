@@ -276,6 +276,44 @@ h2 {
     margin-top: 25px;
 }
 
+/* DOWNLOAD BUTTON FIX */
+.stDownloadButton > button {
+
+    background: linear-gradient(
+        90deg,
+        #6366f1,
+        #22d3ee
+    ) !important;
+
+    color: white !important;
+
+    border-radius: 12px;
+    padding: 10px 22px;
+
+    border: none;
+    font-weight: 600;
+
+    box-shadow: 0 0 15px rgba(99,102,241,0.5);
+
+    transition: all 0.25s ease;
+}
+
+.stDownloadButton > button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 25px rgba(34,211,238,0.8);
+}
+
+.stDownloadButton > button:focus,
+.stDownloadButton > button:active {
+    background: linear-gradient(
+        90deg,
+        #6366f1,
+        #22d3ee
+    ) !important;
+
+    color: white !important;
+}
+
 </style>
 """, unsafe_allow_html=True)
 
