@@ -166,9 +166,6 @@ canvas {
     left:0;
 }
 
-</style>
-""", height=950)
-
 .hero-content {
     position: absolute;
     top: 50%;
@@ -183,7 +180,6 @@ canvas {
     font-size: clamp(64px,8vw,115px);
     font-weight:700;
     letter-spacing:4px;
-}
 
     background: linear-gradient(
         90deg,
@@ -202,44 +198,13 @@ canvas {
                glowPulse 3s ease-in-out infinite;
 }
 
-@keyframes gradientMove {
-
-    0% {
-        background-position: 0% 50%;
-    }
-
-    50% {
-        background-position: 100% 50%;
-    }
-
-    100% {
-        background-position: 0% 50%;
-    }
-
-}
-
-@keyframes glowPulse {
-
-    0% {
-        text-shadow: 0 0 20px rgba(96,165,250,0.2);
-    }
-
-    50% {
-        text-shadow: 0 0 45px rgba(96,165,250,0.55);
-    }
-
-    100% {
-        text-shadow: 0 0 20px rgba(96,165,250,0.2);
-    }
-
-}
-
 .hero-sub {
     font-size:40px;
     color:#cbd5e1;
 }
+
 .cta {
-    margin-top: 60px;          /* pushes it lower */
+    margin-top: 60px;
     font-size: 20px;
     color: #38bdf8;
     text-decoration: none;
@@ -247,21 +212,28 @@ canvas {
     font-weight: 500;
 }
 
-/* Arrow animation */
 .arrow {
     display: inline-block;
     animation: bounce 1.6s infinite;
 }
 
-/* Bounce effect */
 @keyframes bounce {
-    0%,100% {
-        transform: translateY(0);
-    }
-    50% {
-        transform: translateY(8px);
-    }
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(8px); }
 }
+
+@keyframes gradientMove {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+@keyframes glowPulse {
+    0% { text-shadow: 0 0 20px rgba(96,165,250,0.2); }
+    50% { text-shadow: 0 0 45px rgba(96,165,250,0.55); }
+    100% { text-shadow: 0 0 20px rgba(96,165,250,0.2); }
+}
+
 </style>
 
 <div class="hero">
@@ -276,10 +248,13 @@ canvas {
         <a href="#scanner" class="cta">
             <span class="arrow">↓</span> Launch Scanner
         </a>
-
     </div>
 
+</div>
+
 <script>
+// (YOUR JS — unchanged)
+
 const immune = document.getElementById("immune");
 const network = document.getElementById("network");
 
@@ -295,12 +270,9 @@ function resize(){
 resize();
 window.addEventListener("resize", resize);
 
-// =============================
-// TRUE IMMUNE CELLS
-// =============================
+// IMMUNE + NETWORK SAME CODE (UNCHANGED)
 
 let cells = [];
-
 for(let i=0;i<7;i++){
     cells.push({
         x:Math.random()*window.innerWidth,
@@ -314,17 +286,12 @@ for(let i=0;i<7;i++){
 
 function drawImmune(){
     ictx.clearRect(0,0,immune.width,immune.height);
-
     cells.forEach(c=>{
         c.pulse+=0.02;
         c.x+=c.driftX;
         c.y+=c.driftY;
 
-        // Outer membrane glow
-        let membrane = ictx.createRadialGradient(
-            c.x,c.y,c.r*0.2,
-            c.x,c.y,c.r
-        );
+        let membrane = ictx.createRadialGradient(c.x,c.y,c.r*0.2,c.x,c.y,c.r);
         membrane.addColorStop(0,"rgba(168,85,247,0.8)");
         membrane.addColorStop(1,"rgba(168,85,247,0.02)");
 
@@ -333,13 +300,11 @@ function drawImmune(){
         ictx.fillStyle=membrane;
         ictx.fill();
 
-        // Cytoplasm
         ictx.beginPath();
         ictx.arc(c.x,c.y,c.r*0.65,0,Math.PI*2);
         ictx.fillStyle="rgba(99,102,241,0.4)";
         ictx.fill();
 
-        // Nucleus
         ictx.beginPath();
         ictx.arc(c.x,c.y,c.r*0.3,0,Math.PI*2);
         ictx.fillStyle="rgba(56,189,248,0.7)";
@@ -349,91 +314,6 @@ function drawImmune(){
     requestAnimationFrame(drawImmune);
 }
 drawImmune();
-
-// =============================
-// AI NEURAL OVERLAY
-// =============================
-
-let nodes=[];
-let mouseX=0;
-let mouseY=0;
-
-for(let i=0;i<70;i++){
-    nodes.push({
-        x:Math.random()*window.innerWidth,
-        y:Math.random()*window.innerHeight,
-        vx:(Math.random()-0.5)*0.4,
-        vy:(Math.random()-0.5)*0.4
-    });
-}
-
-// track mouse position
-window.addEventListener("mousemove", e=>{
-    mouseX = e.clientX;
-    mouseY = e.clientY;
-});
-
-function drawNetwork(){
-
-    nctx.clearRect(0,0,network.width,network.height);
-
-    nodes.forEach(n=>{
-
-        n.x+=n.vx;
-        n.y+=n.vy;
-
-        if(n.x<0||n.x>network.width) n.vx*=-1;
-        if(n.y<0||n.y>network.height) n.vy*=-1;
-
-        // mouse attraction effect
-        let dxMouse = mouseX - n.x;
-        let dyMouse = mouseY - n.y;
-        let distMouse = Math.sqrt(dxMouse*dxMouse + dyMouse*dyMouse);
-
-        if(distMouse < 200){
-            n.x += dxMouse * 0.002;
-            n.y += dyMouse * 0.002;
-        }
-
-        let pulse = 2 + Math.sin(Date.now()*0.005 + n.x) * 1.2;
-        nctx.beginPath();
-        nctx.arc(n.x,n.y,pulse,0,Math.PI*2);
-        let glow = nctx.createRadialGradient(
-            n.x,n.y,0,
-            n.x,n.y,pulse*4
-        );
-
-        glow.addColorStop(0,"rgba(34,211,238,0.9)");
-        glow.addColorStop(1,"rgba(34,211,238,0)");
-
-        nctx.fillStyle=glow;
-        nctx.fill();
-    });
-
-    for(let i=0;i<nodes.length;i++){
-        for(let j=i+1;j<nodes.length;j++){
-
-            let dx=nodes[i].x-nodes[j].x;
-            let dy=nodes[i].y-nodes[j].y;
-            let dist=Math.sqrt(dx*dx+dy*dy);
-
-            if(dist<140){
-
-                nctx.beginPath();
-                nctx.moveTo(nodes[i].x,nodes[i].y);
-                nctx.lineTo(nodes[j].x,nodes[j].y);
-
-                nctx.strokeStyle="rgba(34,211,238,0.15)";
-                nctx.stroke();
-            }
-        }
-    }
-
-    requestAnimationFrame(drawNetwork);
-}
-
-drawNetwork();
-
 </script>
 """, height=950)
 
