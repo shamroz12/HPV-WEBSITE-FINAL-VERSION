@@ -314,6 +314,52 @@ div[data-testid="stDataFrame"] td {
     background: transparent !important;
 }
 
+/* REMOVE EXTRA GAP BELOW HERO */
+section.main {
+    padding-top: 0 !important;
+}
+
+/* REMOVE RANDOM VERTICAL SPACE */
+[data-testid="stVerticalBlock"] {
+    gap: 10px !important;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+.stButton > button {
+    transition: all 0.25s ease !important;
+}
+
+.stButton > button:active {
+    transform: scale(0.96);
+}
+
+.glass-card {
+    transition: all 0.25s ease;
+}
+
+.glass-card:hover {
+    transform: translateY(-4px);
+    box-shadow:
+        0 12px 40px rgba(0,0,0,0.6),
+        0 0 20px rgba(99,102,241,0.2);
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    width: 100%;
+    height: 100%;
+
+    background:
+        radial-gradient(circle at 20% 30%, rgba(99,102,241,0.08), transparent),
+        radial-gradient(circle at 80% 70%, rgba(34,211,238,0.08), transparent);
+
+    z-index: -1;
+}
+
 </style>
 """, unsafe_allow_html=True)
 
@@ -1576,3 +1622,65 @@ with tab2:
         )
 
         st.plotly_chart(fig, use_container_width=True)
+
+st.markdown("""
+<style>
+
+/* ==========================
+FOOTER
+========================== */
+.footer {
+    margin-top: 60px;
+    padding: 30px 20px;
+
+    text-align: center;
+
+    background: linear-gradient(
+        135deg,
+        rgba(15,23,42,0.95),
+        rgba(2,6,23,0.95)
+    );
+
+    border-top: 1px solid rgba(99,102,241,0.2);
+
+    backdrop-filter: blur(12px);
+
+    box-shadow: 0 -5px 30px rgba(0,0,0,0.5);
+}
+
+.footer-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #e0f2fe;
+}
+
+.footer-sub {
+    font-size: 13px;
+    color: #94a3b8;
+    margin-top: 6px;
+}
+
+.footer-highlight {
+    background: linear-gradient(90deg,#6366f1,#22d3ee);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+</style>
+
+<div class="footer">
+
+    <div class="footer-title">
+        🧬 HPV EPIPRED
+    </div>
+
+    <div class="footer-sub">
+        AI-driven MHC-I Epitope Prediction Platform
+    </div>
+
+    <div class="footer-sub" style="margin-top:10px;">
+        Built with ❤️ by <span class="footer-highlight">Shamroz Abrar</span>
+    </div>
+
+</div>
+""", unsafe_allow_html=True)
