@@ -46,10 +46,13 @@ CENTERED RESEARCH LAYOUT
 ====================================================== */
 
 .main .block-container{
-    max-width:1200px;
-    padding-top:2rem;
-    padding-bottom:2rem;
+    max-width: 100% !important;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    padding-top: 0rem;
+    padding-bottom: 2rem;
 }
+
 
 [data-testid="stVerticalBlock"]{
     gap:16px;
@@ -203,18 +206,23 @@ header{
     visibility:hidden;
 }
 
-/* ==========================
-GLASS CARD SYSTEM
-========================== */
+st.markdown("""
+<style>
 
-.glass-card {
-    background: rgba(255,255,255,0.05);
-    backdrop-filter: blur(12px);
-    border-radius: 18px;
-    padding: 20px;
-    border: 1px solid rgba(255,255,255,0.08);
-    box-shadow: 0 8px 30px rgba(0,0,0,0.25);
-    margin-bottom: 20px;
+/* FORCE FULL WIDTH */
+section.main > div {
+    max-width: 100% !important;
+}
+
+/* REMOVE SIDE GAPS */
+[data-testid="stAppViewContainer"] {
+    padding: 0;
+    margin: 0;
+}
+
+/* MAKE BLOCK FULL WIDTH */
+.block-container {
+    width: 100% !important;
 }
 
 </style>
@@ -277,8 +285,10 @@ components.html("""
 
 .hero {
     position: relative;
-    width: 100%;
+    .hero {
+    width: 100vw;
     height: 100vh;
+    margin-left: calc(-50vw + 50%);
     overflow: hidden;
     background:
         radial-gradient(circle at 30% 40%, #3b0764 0%, transparent 45%),
