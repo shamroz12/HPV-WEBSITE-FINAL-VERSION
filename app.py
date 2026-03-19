@@ -314,6 +314,80 @@ function drawImmune(){
     requestAnimationFrame(drawImmune);
 }
 drawImmune();
+
+// =============================
+// AI NEURAL OVERLAY (RESTORED)
+// =============================
+
+let nodes = [];
+let mouseX = 0;
+let mouseY = 0;
+
+for(let i=0;i<70;i++){
+    nodes.push({
+        x:Math.random()*window.innerWidth,
+        y:Math.random()*window.innerHeight,
+        vx:(Math.random()-0.5)*0.4,
+        vy:(Math.random()-0.5)*0.4
+    });
+}
+
+window.addEventListener("mousemove", e=>{
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+});
+
+function drawNetwork(){
+
+    nctx.clearRect(0,0,network.width,network.height);
+
+    nodes.forEach(n=>{
+
+        n.x+=n.vx;
+        n.y+=n.vy;
+
+        if(n.x<0||n.x>network.width) n.vx*=-1;
+        if(n.y<0||n.y>network.height) n.vy*=-1;
+
+        // mouse interaction
+        let dx = mouseX - n.x;
+        let dy = mouseY - n.y;
+        let dist = Math.sqrt(dx*dx + dy*dy);
+
+        if(dist < 200){
+            n.x += dx * 0.002;
+            n.y += dy * 0.002;
+        }
+
+        let pulse = 2 + Math.sin(Date.now()*0.005 + n.x);
+
+        nctx.beginPath();
+        nctx.arc(n.x,n.y,pulse,0,Math.PI*2);
+        nctx.fillStyle="rgba(34,211,238,0.9)";
+        nctx.fill();
+    });
+
+    for(let i=0;i<nodes.length;i++){
+        for(let j=i+1;j<nodes.length;j++){
+
+            let dx = nodes[i].x - nodes[j].x;
+            let dy = nodes[i].y - nodes[j].y;
+            let dist = Math.sqrt(dx*dx + dy*dy);
+
+            if(dist < 140){
+                nctx.beginPath();
+                nctx.moveTo(nodes[i].x,nodes[i].y);
+                nctx.lineTo(nodes[j].x,nodes[j].y);
+                nctx.strokeStyle="rgba(34,211,238,0.15)";
+                nctx.stroke();
+            }
+        }
+    }
+
+    requestAnimationFrame(drawNetwork);
+}
+
+drawNetwork();
 </script>
 """, height=950)
 
