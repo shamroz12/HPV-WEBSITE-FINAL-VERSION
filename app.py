@@ -194,8 +194,59 @@ button[aria-selected="true"]{
     box-shadow:0 0 12px rgba(99,102,241,0.6);
 }
 
+/* ==========================
+FORCE TEXT VISIBILITY (FIX DULL TEXT)
+========================== */
+
+/* ALL TEXT */
+body, p, span, div, label {
+    color: #f8fafc !important;
+}
+
+/* RADIO + OPTIONS */
+.stRadio label,
+.stRadio div {
+    color: #f8fafc !important;
+}
+
+/* TAB LABEL TEXT */
+button[data-baseweb="tab"] {
+    color: #cbd5f5 !important;
+}
+
+button[aria-selected="true"] {
+    color: #ffffff !important;
+}
+
+/* INPUT LABELS */
+label[data-testid="stWidgetLabel"] {
+    color: #e2e8f0 !important;
+    font-weight: 500;
+}
+
+/* TEXTAREA CONTENT */
+textarea {
+    color: #f8fafc !important;
+}
+
+/* METRICS */
+[data-testid="metric-container"] {
+    color: #f8fafc !important;
+}
+
+/* DATAFRAME TEXT */
+div[data-testid="stDataFrame"] * {
+    color: #e2e8f0 !important;
+}
+
+/* REMOVE FADED OPACITY FROM STREAMLIT */
+* {
+    opacity: 1 !important;
+}
+
 </style>
 """, unsafe_allow_html=True)
+
 
 import numpy as np
 import pandas as pd
