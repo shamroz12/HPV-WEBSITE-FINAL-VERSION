@@ -137,28 +137,6 @@ h3{font-size:22px;}
 </style>
 """, unsafe_allow_html=True)
 
-
-/* ======================================================
-BUTTONS
-====================================================== */
-
-.stButton > button{
-    font-family:'Inter', sans-serif;
-    font-weight:600;
-    border-radius:12px;
-    padding:8px 22px;
-    background:#6366f1;
-    color:white;
-    border:none;
-    transition:all .2s ease;
-}
-
-.stButton > button:hover{
-    transform:translateY(-2px);
-    box-shadow:0 6px 20px rgba(99,102,241,0.35);
-}
-
-
 /* ======================================================
 DOWNLOAD BUTTON
 ====================================================== */
