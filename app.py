@@ -41,6 +41,9 @@ html, body, [data-testid="stAppViewContainer"]{
 }
 
 
+st.markdown("""
+<style>
+
 /* ======================================================
 CENTERED RESEARCH LAYOUT
 ====================================================== */
@@ -53,11 +56,12 @@ CENTERED RESEARCH LAYOUT
     padding-bottom: 2rem;
 }
 
-
 [data-testid="stVerticalBlock"]{
     gap:16px;
 }
 
+</style>
+""", unsafe_allow_html=True)
 
 /* ======================================================
 HEADINGS
