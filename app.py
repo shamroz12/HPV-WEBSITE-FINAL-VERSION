@@ -279,11 +279,23 @@ body {
 st.markdown("""
 <style>
 
+st.markdown("""
+<style>
+
 /* ==========================
-GLOBAL CARD SYSTEM
+RESET (REMOVE FAKE BARS)
 ========================== */
 [data-testid="stVerticalBlock"] > div {
+    background: transparent !important;
+    box-shadow: none !important;
+    border: none !important;
+    padding: 0 !important;
+}
 
+/* ==========================
+CREATE REAL CARD CLASS
+========================== */
+.glass-card {
     background: linear-gradient(
         135deg,
         rgba(15,23,42,0.85),
@@ -291,15 +303,14 @@ GLOBAL CARD SYSTEM
     );
 
     border-radius: 18px;
-    padding: 18px;
+    padding: 20px;
+    margin-bottom: 20px;
 
     border: 1px solid rgba(99,102,241,0.15);
 
     box-shadow:
         0 8px 30px rgba(0,0,0,0.4),
         inset 0 0 10px rgba(255,255,255,0.02);
-
-    margin-bottom: 20px;
 }
 
 </style>
@@ -368,43 +379,6 @@ st.markdown("""
 
 </style>
 """, unsafe_allow_html=True)
-
-st.markdown("""
-<style>
-
-/* ==========================
-FIX: REMOVE EMPTY GREY BARS
-========================== */
-
-/* ONLY style blocks that have content */
-[data-testid="stVerticalBlock"] > div:has(*:not(:empty)) {
-
-    background: linear-gradient(
-        135deg,
-        rgba(15,23,42,0.85),
-        rgba(2,6,23,0.85)
-    );
-
-    border-radius: 18px;
-    padding: 18px;
-
-    border: 1px solid rgba(99,102,241,0.15);
-
-    box-shadow:
-        0 8px 30px rgba(0,0,0,0.4),
-        inset 0 0 10px rgba(255,255,255,0.02);
-
-    margin-bottom: 20px;
-}
-
-/* REMOVE EMPTY BLOCK STYLING */
-[data-testid="stVerticalBlock"] > div:empty {
-    display: none !important;
-}
-
-</style>
-""", unsafe_allow_html=True)
-
 
 import numpy as np
 import pandas as pd
@@ -895,7 +869,8 @@ with tab1:
         # TABLE TAB
         # ==========================
         with tab_table:
-
+        
+                st.markdown('<div class="glass-card">', unsafe_allow_html=True)
                 st.markdown("### 🟢 Predicted Epitopes")
 
                 st.markdown("""
@@ -967,7 +942,8 @@ with tab1:
         # PROBABILITY PLOT TAB
         # ==========================
         with tab_prob:
-
+        
+                st.markdown('<div class="glass-card">', unsafe_allow_html=True)
                 st.markdown("### 📈 Epitope Probability Across Protein Sequence")
                 
                 st.markdown("""
@@ -1037,7 +1013,8 @@ with tab1:
         # ==========================
 
         with tab_landscape:
-
+        
+                st.markdown('<div class="glass-card">', unsafe_allow_html=True)
                 st.markdown("### 🌍 Epitope Immunogenic Landscape")
 
                 st.markdown("""
@@ -1089,7 +1066,8 @@ with tab1:
         # EPITOPE DENSITY MAP TAB
         # ==========================
         with tab_density:
-
+        
+                st.markdown('<div class="glass-card">', unsafe_allow_html=True)
                 st.markdown("### 🧬 Epitope Density Map")
                     
                 st.markdown("""
@@ -1147,6 +1125,7 @@ with tab1:
         # ==========================
         with tab_fingerprint:
 
+                st.markdown('<div class="glass-card">', unsafe_allow_html=True)
                 st.markdown("### 🧬 Protein Immunogenicity Fingerprint")
 
                 st.markdown("""
@@ -1227,6 +1206,7 @@ with tab1:
         # ==========================
         with tab_score:
 
+                st.markdown('<div class="glass-card">', unsafe_allow_html=True)
                 st.markdown("### 🧬 Global Immunogenic Score")
 
                 st.markdown("""
@@ -1273,6 +1253,7 @@ with tab1:
 
         with tab_atlas:
 
+                st.markdown('<div class="glass-card">', unsafe_allow_html=True)
                 st.markdown("### 🧭 Stacked Protein Epitope Atlas")
 
                 st.markdown("""
@@ -1364,6 +1345,7 @@ with tab1:
 
         with tab_competition:
 
+                st.markdown('<div class="glass-card">', unsafe_allow_html=True)
                 st.markdown("### ⚔️ Epitope Competition Heatmap")
 
                 st.markdown("""
