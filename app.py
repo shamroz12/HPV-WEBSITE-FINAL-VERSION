@@ -4,20 +4,73 @@ st.set_page_config(page_title="HPV EPIPRED", page_icon="🧬", layout="wide")
 st.markdown("""
 <style>
 
-/* INPUT BOX */
-textarea{
-    background-color: #1e293b;
+/* ==========================
+GLOBAL
+========================== */
+html, body, [data-testid="stAppViewContainer"]{
+    background-color: #0f172a;
     color: #e2e8f0;
+    font-family: 'Inter', sans-serif;
 }
 
-/* DATA TABLE */
+/* ==========================
+FULL WIDTH FIX
+========================== */
+.main .block-container{
+    max-width: 100% !important;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    padding-top: 0rem;
+}
+
+/* ==========================
+HEADINGS
+========================== */
+h1,h2,h3{
+    font-family:'Sora', sans-serif;
+    font-weight:700;
+}
+
+h1{font-size:44px;}
+h2{font-size:32px;}
+h3{font-size:22px;}
+
+/* ==========================
+BUTTONS
+========================== */
+.stButton > button{
+    border-radius:12px;
+    padding:8px 22px;
+    background:#6366f1;
+    color:white;
+    border:none;
+}
+
+.stButton > button:hover{
+    transform:translateY(-2px);
+}
+
+/* ==========================
+TABLE
+========================== */
 div[data-testid="stDataFrame"]{
-    background: rgba(255,255,255,0.04);
+    border-radius:14px;
+    background:rgba(255,255,255,0.04);
 }
 
-/* PLOT */
+/* ==========================
+PLOT
+========================== */
 .stPlotlyChart{
-    background: rgba(255,255,255,0.04);
+    background:rgba(255,255,255,0.04);
+    border-radius:14px;
+}
+
+/* ==========================
+REMOVE HEADER
+========================== */
+header{
+    visibility:hidden;
 }
 
 </style>
