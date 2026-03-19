@@ -67,6 +67,11 @@ CENTERED RESEARCH LAYOUT
 HEADINGS
 ====================================================== */
 
+st.markdown("""
+<style>
+
+/* HEADINGS */
+
 h1,h2,h3{
     font-family:'Sora', sans-serif;
     font-weight:700;
@@ -75,6 +80,9 @@ h1,h2,h3{
 h1{font-size:44px;}
 h2{font-size:32px;}
 h3{font-size:22px;}
+
+</style>
+""", unsafe_allow_html=True)
 
 
 /* ======================================================
