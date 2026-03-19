@@ -1658,8 +1658,8 @@ COMPACT PREMIUM FOOTER
 
 </style>
 
-<div class="footer">
-    🧬 <span>HPV EPIPRED</span> • AI-based Epitope Prediction  
+<div class="footer-copy">
+        © {pd.Timestamp.now().year} <span class="highlight">Shamroz Abrar</span>. All rights reserved.
     <br>
     Built by <span class="highlight">Shamroz Abrar</span>
 </div>
