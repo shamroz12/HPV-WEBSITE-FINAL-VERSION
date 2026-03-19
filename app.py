@@ -184,6 +184,76 @@ h2{margin-top:25px;}
 </style>
 """, unsafe_allow_html=True)
 
+st.markdown("""
+<style>
+
+/* ==========================
+FIX TABLE BACKGROUND (NO WHITE)
+========================== */
+div[data-testid="stDataFrame"] {
+    background-color: #020617 !important;
+    border-radius: 14px;
+    border: 1px solid rgba(99,102,241,0.2);
+}
+
+/* REMOVE INNER WHITE GRID */
+div[data-testid="stDataFrame"] div {
+    background-color: transparent !important;
+    color: #e2e8f0 !important;
+}
+
+/* TABLE HEADER */
+div[data-testid="stDataFrame"] thead th {
+    background-color: #020617 !important;
+    color: #38bdf8 !important;
+    font-weight: 600;
+}
+
+/* ROWS */
+div[data-testid="stDataFrame"] tbody tr {
+    background-color: #020617 !important;
+}
+
+/* ROW HOVER */
+div[data-testid="stDataFrame"] tbody tr:hover {
+    background-color: rgba(99,102,241,0.15) !important;
+}
+
+/* ==========================
+FIX LEGEND BOX (REMOVE WHITE FADE)
+========================== */
+.legend-box {
+    background: linear-gradient(
+        135deg,
+        rgba(2,6,23,0.98),
+        rgba(15,23,42,0.98)
+    ) !important;
+
+    color: #e2e8f0 !important;
+}
+
+/* ==========================
+REMOVE STREAMLIT DEFAULT WHITE CARDS
+========================== */
+[data-testid="stVerticalBlock"] > div {
+    background: transparent !important;
+}
+
+/* ==========================
+GLOBAL ANTI-WHITE PATCH
+========================== */
+section.main {
+    background-color: #020617 !important;
+}
+
+/* FIX ANY REMAINING WHITE BOXES */
+div[style*="background-color: white"] {
+    background-color: #020617 !important;
+}
+
+</style>
+""", unsafe_allow_html=True)
+
 import numpy as np
 import pandas as pd
 import joblib
