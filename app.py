@@ -89,6 +89,102 @@ div[data-testid="stDataFrame"]{
 </style>
 """, unsafe_allow_html=True)
 
+st.markdown("""
+<style>
+
+/* ==========================
+GLOBAL TEXT BOOST
+========================== */
+body, p, label, span {
+    color: #f8fafc !important;   /* pure bright white */
+}
+
+/* ==========================
+HEADINGS GLOW
+========================== */
+h1, h2, h3 {
+    color: #e0f2fe;
+    text-shadow: 0 0 12px rgba(56,189,248,0.25);
+}
+
+/* ==========================
+TABS (MAKE THEM POP)
+========================== */
+button[data-baseweb="tab"] {
+    background: rgba(99,102,241,0.15);
+    border-radius: 10px;
+    padding: 6px 14px;
+}
+
+button[data-baseweb="tab"]:hover {
+    background: rgba(99,102,241,0.35);
+}
+
+/* ==========================
+ACTIVE TAB
+========================== */
+button[aria-selected="true"] {
+    background: linear-gradient(90deg,#6366f1,#22d3ee);
+    color: white !important;
+    box-shadow: 0 0 12px rgba(99,102,241,0.6);
+}
+
+/* ==========================
+LEGEND BOX FIX
+========================== */
+.legend-box {
+    background: rgba(15,23,42,0.85) !important;
+    border: 1px solid rgba(99,102,241,0.4);
+    color: #e2e8f0 !important;
+    backdrop-filter: blur(10px);
+}
+
+/* ==========================
+TABLE IMPROVEMENT
+========================== */
+div[data-testid="stDataFrame"] {
+    background: rgba(15,23,42,0.85) !important;
+    border: 1px solid rgba(99,102,241,0.2);
+}
+
+/* ==========================
+PLOT CONTAINER
+========================== */
+.stPlotlyChart {
+    background: rgba(15,23,42,0.85) !important;
+    border: 1px solid rgba(99,102,241,0.2);
+}
+
+/* ==========================
+INPUT BOX FIX
+========================== */
+textarea {
+    background-color: #020617 !important;
+    color: #f8fafc !important;
+    border: 1px solid rgba(99,102,241,0.3);
+}
+
+/* ==========================
+BUTTON GLOW
+========================== */
+.stButton > button {
+    background: linear-gradient(90deg,#6366f1,#22d3ee);
+    box-shadow: 0 0 15px rgba(99,102,241,0.5);
+}
+
+.stButton > button:hover {
+    box-shadow: 0 0 25px rgba(34,211,238,0.8);
+}
+
+/* ==========================
+SECTION SPACING
+========================== */
+h2 {
+    margin-top: 25px;
+}
+
+</style>
+""", unsafe_allow_html=True)
 
 import numpy as np
 import pandas as pd
