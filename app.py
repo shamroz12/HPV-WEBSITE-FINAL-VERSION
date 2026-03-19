@@ -1659,45 +1659,6 @@ COMPACT PREMIUM FOOTER
 </style>
 
 <div class="footer">
-     <span>HPV EPIPRED</span> • AI-based Epitope Prediction  
-    <br>
-    Built by <span class="highlight">Shamroz Abrar</span>
-</div>
-
-""", unsafe_allow_html=True)
-
-st.markdown("""
-<style>
-
-/* ==========================
-COMPACT PREMIUM FOOTER
-========================== */
-
-.footer {
-    position: relative;
-    margin-top: 40px;
-    padding: 12px 10px;
-    text-align: center;
-    background: transparent;
-    border-top: 1px solid rgba(99,102,241,0.15);
-    font-size: 13px;
-    color: #94a3b8;
-}
-
-.footer span {
-    color: #e2e8f0;
-    font-weight: 500;
-}
-
-.footer .highlight {
-    background: linear-gradient(90deg,#6366f1,#22d3ee);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-</style>
-
-<div class="footer">
     <span>HPV EPIPRED</span> • AI-based Epitope Prediction  
     <br>
     © 2026 <span class="highlight">Shamroz Abrar</span>. All rights reserved.
