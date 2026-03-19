@@ -4,10 +4,14 @@ st.set_page_config(page_title="HPV EPIPRED", page_icon="🧬", layout="wide")
 st.markdown("""
 <style>
 
-/* GOOGLE FONTS */
+/* ==========================
+GOOGLE FONTS
+========================== */
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700&family=Sora:wght@600;700&family=Inter:wght@400;600&display=swap');
 
-/* GLOBAL */
+/* ==========================
+GLOBAL
+========================== */
 html, body, [data-testid="stAppViewContainer"]{
     background-color:#0f172a;
     color:#e2e8f0;
@@ -16,7 +20,9 @@ html, body, [data-testid="stAppViewContainer"]{
     padding:0;
 }
 
-/* FULL WIDTH */
+/* ==========================
+FULL WIDTH
+========================== */
 .main .block-container{
     max-width:100% !important;
     padding:0 2rem;
@@ -25,26 +31,25 @@ html, body, [data-testid="stAppViewContainer"]{
 /* REMOVE HEADER */
 header{visibility:hidden;}
 
-/* HEADINGS */
+/* ==========================
+HEADINGS
+========================== */
 h1,h2,h3{
     font-family:'Sora', sans-serif;
     font-weight:700;
+    color:#e0f2fe;
 }
-
-h1{font-size:44px;}
-h2{font-size:32px;}
-h3{font-size:22px;}
 
 /* ==========================
 BUTTONS
 ========================== */
 .stButton > button{
     border-radius:12px;
-    padding:8px 22px;
+    padding:10px 24px;
     background:linear-gradient(90deg,#6366f1,#22d3ee);
     color:white;
     border:none;
-    transition:0.2s;
+    font-weight:600;
     box-shadow:0 0 15px rgba(99,102,241,0.5);
 }
 
@@ -53,7 +58,37 @@ BUTTONS
     box-shadow:0 0 25px rgba(34,211,238,0.8);
 }
 
-/* DOWNLOAD BUTTON */
+/* ==========================
+INPUT
+========================== */
+textarea, input{
+    background:#020617 !important;
+    color:#f8fafc !important;
+    border-radius:12px;
+    border:1px solid rgba(99,102,241,0.3);
+}
+
+/* ==========================
+TABLE (FIX WHITE ISSUE)
+========================== */
+div[data-testid="stDataFrame"]{
+    background:rgba(15,23,42,0.85) !important;
+    border-radius:14px;
+    border:1px solid rgba(99,102,241,0.2);
+}
+
+/* ==========================
+PLOT
+========================== */
+.stPlotlyChart{
+    background:rgba(15,23,42,0.85) !important;
+    border-radius:14px;
+    padding:10px;
+}
+
+/* ==========================
+DOWNLOAD BUTTON FIX
+========================== */
 .stDownloadButton > button{
     background:linear-gradient(90deg,#6366f1,#22d3ee) !important;
     color:white !important;
@@ -64,42 +99,84 @@ BUTTONS
 }
 
 /* ==========================
-INPUT
+REMOVE GREY EMPTY BLOCKS
 ========================== */
-textarea, input{
-    border-radius:12px;
-    font-family:'JetBrains Mono', monospace;
-    background:#020617 !important;
+[data-testid="stVerticalBlock"] > div{
+    background:transparent !important;
+    box-shadow:none !important;
+    border:none !important;
+    padding:0 !important;
+}
+
+/* ==========================
+PREMIUM GLASS CARD
+========================== */
+.glass-card{
+    background:linear-gradient(
+        135deg,
+        rgba(15,23,42,0.85),
+        rgba(2,6,23,0.85)
+    );
+
+    border-radius:18px;
+    padding:20px;
+    margin-bottom:20px;
+
+    border:1px solid rgba(99,102,241,0.15);
+
+    box-shadow:
+        0 8px 30px rgba(0,0,0,0.4),
+        inset 0 0 10px rgba(255,255,255,0.02);
+}
+
+/* ==========================
+PREMIUM LEGEND BOX
+========================== */
+.legend-box{
+    background:linear-gradient(
+        135deg,
+        rgba(15,23,42,0.95),
+        rgba(2,6,23,0.95)
+    );
+
+    border-radius:16px;
+    padding:20px;
+    margin-bottom:20px;
+
+    border:1px solid rgba(99,102,241,0.3);
+
+    backdrop-filter:blur(12px);
+
+    box-shadow:
+        0 0 20px rgba(99,102,241,0.15),
+        inset 0 0 12px rgba(255,255,255,0.03);
+}
+
+/* TITLE */
+.legend-title{
+    font-size:18px;
+    font-weight:700;
+
+    background:linear-gradient(90deg,#38bdf8,#a78bfa);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+
+    margin-bottom:12px;
+}
+
+/* TEXT */
+.legend-item{
     color:#f8fafc !important;
+    font-size:14.5px;
+    line-height:1.8;
+}
+
+.legend-item b{
+    color:#22d3ee;
 }
 
 /* ==========================
-TABLE
-========================== */
-div[data-testid="stDataFrame"]{
-    border-radius:14px;
-    background:rgba(15,23,42,0.85);
-    border:1px solid rgba(99,102,241,0.2);
-}
-
-/* ==========================
-PLOT
-========================== */
-.stPlotlyChart{
-    background:rgba(15,23,42,0.85);
-    border-radius:14px;
-    padding:10px;
-}
-
-/* ==========================
-TEXT BOOST
-========================== */
-body, p, label, span {
-    color:#f8fafc !important;
-}
-
-/* ==========================
-TABS
+TABS PREMIUM
 ========================== */
 button[data-baseweb="tab"]{
     background:rgba(99,102,241,0.15);
@@ -115,266 +192,6 @@ button[aria-selected="true"]{
     background:linear-gradient(90deg,#6366f1,#22d3ee);
     color:white !important;
     box-shadow:0 0 12px rgba(99,102,241,0.6);
-}
-
-/* ==========================
-PREMIUM INTERPRETATION BOX
-========================== */
-.legend-box{
-    background:linear-gradient(
-        135deg,
-        rgba(15,23,42,0.95),
-        rgba(2,6,23,0.95)
-    );
-    border:1px solid rgba(99,102,241,0.3);
-    border-radius:16px;
-    padding:20px;
-    margin-bottom:20px;
-    backdrop-filter:blur(14px);
-    box-shadow:
-        0 0 20px rgba(99,102,241,0.15),
-        inset 0 0 12px rgba(255,255,255,0.03);
-    position:relative;
-    overflow:hidden;
-}
-
-/* TOP GLOW LINE */
-.legend-box::before{
-    content:"";
-    position:absolute;
-    top:0;
-    left:0;
-    width:100%;
-    height:3px;
-    background:linear-gradient(90deg,#6366f1,#22d3ee,#a78bfa);
-}
-
-/* TITLE */
-.legend-title{
-    font-size:18px;
-    font-weight:700;
-    background:linear-gradient(90deg,#38bdf8,#a78bfa);
-    -webkit-background-clip:text;
-    -webkit-text-fill-color:transparent;
-    margin-bottom:12px;
-}
-
-/* ITEMS */
-.legend-item{
-    color:#e2e8f0 !important;
-    font-size:14.5px;
-    line-height:1.8;
-    transition:0.2s;
-}
-
-.legend-item:hover{
-    transform:translateX(4px);
-    color:#f8fafc !important;
-}
-
-.legend-item b{
-    color:#22d3ee;
-}
-
-/* ==========================
-SPACING
-========================== */
-h2{margin-top:25px;}
-
-</style>
-""", unsafe_allow_html=True)
-
-st.markdown("""
-<style>
-
-/* ==========================
-FIX TABLE BACKGROUND (NO WHITE)
-========================== */
-div[data-testid="stDataFrame"] {
-    background-color: #020617 !important;
-    border-radius: 14px;
-    border: 1px solid rgba(99,102,241,0.2);
-}
-
-/* REMOVE INNER WHITE GRID */
-div[data-testid="stDataFrame"] div {
-    background-color: transparent !important;
-    color: #e2e8f0 !important;
-}
-
-/* TABLE HEADER */
-div[data-testid="stDataFrame"] thead th {
-    background-color: #020617 !important;
-    color: #38bdf8 !important;
-    font-weight: 600;
-}
-
-/* ROWS */
-div[data-testid="stDataFrame"] tbody tr {
-    background-color: #020617 !important;
-}
-
-/* ROW HOVER */
-div[data-testid="stDataFrame"] tbody tr:hover {
-    background-color: rgba(99,102,241,0.15) !important;
-}
-
-/* ==========================
-FIX LEGEND BOX (REMOVE WHITE FADE)
-========================== */
-.legend-box {
-    background: linear-gradient(
-        135deg,
-        rgba(2,6,23,0.98),
-        rgba(15,23,42,0.98)
-    ) !important;
-
-    color: #e2e8f0 !important;
-}
-
-/* ==========================
-REMOVE STREAMLIT DEFAULT WHITE CARDS
-========================== */
-[data-testid="stVerticalBlock"] > div {
-    background: transparent !important;
-}
-
-/* ==========================
-GLOBAL ANTI-WHITE PATCH
-========================== */
-section.main {
-    background-color: #020617 !important;
-}
-
-/* FIX ANY REMAINING WHITE BOXES */
-div[style*="background-color: white"] {
-    background-color: #020617 !important;
-}
-
-</style>
-""", unsafe_allow_html=True)
-st.markdown("""
-<style>
-
-/* ==========================
-DEEP BACKGROUND 
-========================== */
-body {
-    background: radial-gradient(
-        circle at 20% 30%,
-        rgba(99,102,241,0.15),
-        transparent 40%
-    ),
-    radial-gradient(
-        circle at 80% 70%,
-        rgba(34,211,238,0.12),
-        transparent 40%
-    ),
-    #020617 !important;
-}
-
-</style>
-""", unsafe_allow_html=True)
-
-st.markdown("""
-<style>
-
-/* ==========================
-RESET (REMOVE FAKE BARS)
-========================== */
-[data-testid="stVerticalBlock"] > div {
-    background: transparent !important;
-    box-shadow: none !important;
-    border: none !important;
-    padding: 0 !important;
-}
-
-st.markdown("""
-<style>
-
-/* ==========================
-CREATE REAL CARD CLASS
-========================== */
-.glass-card {
-    background: linear-gradient(
-        135deg,
-        rgba(15,23,42,0.85),
-        rgba(2,6,23,0.85)
-    );
-
-    border-radius: 18px;
-    padding: 20px;
-    margin-bottom: 20px;
-
-    border: 1px solid rgba(99,102,241,0.15);
-
-    box-shadow:
-        0 8px 30px rgba(0,0,0,0.4),
-        inset 0 0 10px rgba(255,255,255,0.02);
-}
-
-</style>
-""", unsafe_allow_html=True)
-
-st.markdown("""
-<style>
-
-/* TABLE LOOK PREMIUM */
-div[data-testid="stDataFrame"] {
-    background: transparent !important;
-    border: none;
-}
-
-/* HEADER */
-thead th {
-    color: #38bdf8 !important;
-    font-weight: 600;
-}
-
-/* ROWS */
-tbody tr {
-    background: rgba(15,23,42,0.6) !important;
-}
-
-/* HOVER */
-tbody tr:hover {
-    background: rgba(99,102,241,0.2) !important;
-}
-
-</style>
-""", unsafe_allow_html=True)
-
-st.markdown("""
-<style>
-
-/* HEADINGS LIKE COGNIZANCE */
-h2 {
-    font-size: 28px;
-    font-weight: 700;
-
-    background: linear-gradient(90deg,#38bdf8,#a78bfa);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-
-    margin-bottom: 10px;
-}
-
-</style>
-""", unsafe_allow_html=True)
-
-st.markdown("""
-<style>
-
-/* SOFT GLOW SYSTEM */
-* {
-    transition: all 0.2s ease;
-}
-
-/* HOVER GLOW ON CARDS */
-[data-testid="stVerticalBlock"] > div:hover {
-    box-shadow:
-        0 0 40px rgba(34,211,238,0.2),
-        inset 0 0 15px rgba(255,255,255,0.05);
 }
 
 </style>
