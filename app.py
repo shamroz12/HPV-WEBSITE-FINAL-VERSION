@@ -179,11 +179,11 @@ canvas {
 }
 
 .hero-title {
-
     font-family: 'Orbitron', sans-serif;
     font-size: clamp(64px,8vw,115px);
     font-weight:700;
     letter-spacing:4px;
+}
 
     background: linear-gradient(
         90deg,
