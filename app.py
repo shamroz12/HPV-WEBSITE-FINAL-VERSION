@@ -1631,59 +1631,37 @@ st.markdown("""
 <style>
 
 /* ==========================
-PREMIUM COPYRIGHT FOOTER
+COMPACT PREMIUM FOOTER
 ========================== */
+
 .footer {
+    position: relative;
     margin-top: 40px;
-    padding: 14px 10px;
-
+    padding: 12px 10px;
     text-align: center;
-
-    border-top: 1px solid rgba(99,102,241,0.2);
-
+    background: transparent;
+    border-top: 1px solid rgba(99,102,241,0.15);
     font-size: 13px;
     color: #94a3b8;
-
-    letter-spacing: 0.3px;
 }
 
-/* MAIN LINE */
-.footer-main {
+.footer span {
     color: #e2e8f0;
     font-weight: 500;
 }
 
-/* COPYRIGHT */
-.footer-copy {
-    margin-top: 4px;
-    font-size: 12px;
-    color: #64748b;
-}
-
-/* HIGHLIGHT NAME */
 .footer .highlight {
     background: linear-gradient(90deg,#6366f1,#22d3ee);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    font-weight: 600;
-}
-
-/* HOVER EFFECT */
-.footer:hover {
-    border-top: 1px solid rgba(34,211,238,0.5);
 }
 
 </style>
 
 <div class="footer">
-
-    <div class="footer-main">
-        🧬 HPV EPIPRED • AI-driven MHC-I Epitope Prediction
-    </div>
-
-    <div class="footer-copy">
-        © 2026 <span class="highlight">Shamroz Abrar</span>. All rights reserved.
-    </div>
-
+    🧬 <span>HPV EPIPRED</span> • AI-based Epitope Prediction  
+    <br>
+    Built by <span class="highlight">Shamroz Abrar</span>
 </div>
+
 """, unsafe_allow_html=True)
