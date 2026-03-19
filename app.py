@@ -292,6 +292,9 @@ RESET (REMOVE FAKE BARS)
     padding: 0 !important;
 }
 
+st.markdown("""
+<style>
+
 /* ==========================
 CREATE REAL CARD CLASS
 ========================== */
