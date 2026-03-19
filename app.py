@@ -5,23 +5,23 @@ st.markdown("""
 <style>
 
 /* INPUT BOX */
-
 textarea{
     background-color: #1e293b;
-    color: {"#e2e8f0" if theme=="dark" else "#1e293b"};
+    color: #e2e8f0;
 }
 
 /* DATA TABLE */
-
 div[data-testid="stDataFrame"]{
-    background: {"rgba(255,255,255,0.04)" if theme=="dark" else "#f1f5f9"};
+    background: rgba(255,255,255,0.04);
 }
 
-/* PLOT CONTAINER */
-
+/* PLOT */
 .stPlotlyChart{
-    background: {"rgba(255,255,255,0.04)" if theme=="dark" else "#ffffff"};
+    background: rgba(255,255,255,0.04);
 }
+
+</style>
+""", unsafe_allow_html=True)
 
 /* ======================================================
 IMPORT PROFESSIONAL FONTS
@@ -254,9 +254,11 @@ from reportlab.platypus import PageBreak
 # =========================================================
 st.markdown("""
 <style>
+
 .block-container { padding-top: 0rem !important; }
 header {visibility: hidden;}
 html { scroll-behavior: smooth; }
+
 </style>
 """, unsafe_allow_html=True)
 
