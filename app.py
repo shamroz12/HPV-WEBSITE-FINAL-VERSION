@@ -75,6 +75,12 @@ st.markdown("""
 /* ==========================
 PREMIUM INTERPRETATION BOX
 ========================== */
+st.markdown("""
+<style>
+
+/* ==========================
+PREMIUM INTERPRETATION BOX
+========================== */
 .legend-box {
 
     background: linear-gradient(
@@ -97,6 +103,10 @@ PREMIUM INTERPRETATION BOX
 
     position: relative;
     overflow: hidden;
+}
+
+.legend-box::before {
+    content: "";
 }
 
 /* 🔥 TOP GLOW LINE */
