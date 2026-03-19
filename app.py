@@ -360,6 +360,10 @@ body::before {
     z-index: -1;
 }
 
+.footer {
+    backdrop-filter: blur(6px);
+}
+
 </style>
 """, unsafe_allow_html=True)
 
@@ -1659,7 +1663,7 @@ COMPACT PREMIUM FOOTER
 <div class="footer">
     🧬 <span>HPV EPIPRED</span> • AI-based Epitope Prediction  
     <br>
-    Built by <span class="highlight">Shamroz Ahmad</span>
+    Built by <span class="highlight">Shamroz Abrar</span>
 </div>
 
 """, unsafe_allow_html=True)
