@@ -4,28 +4,28 @@ st.set_page_config(page_title="HPV EPIPRED", page_icon="🧬", layout="wide")
 st.markdown("""
 <style>
 
-/* ==========================
-GLOBAL
-========================== */
+/* GOOGLE FONTS */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700&family=Sora:wght@600;700&family=Inter:wght@400;600&display=swap');
+
+/* GLOBAL */
 html, body, [data-testid="stAppViewContainer"]{
-    background-color: #0f172a;
-    color: #e2e8f0;
-    font-family: 'Inter', sans-serif;
+    background-color:#0f172a;
+    color:#e2e8f0;
+    font-family:'Inter', sans-serif;
+    margin:0;
+    padding:0;
 }
 
-/* ==========================
-FULL WIDTH FIX
-========================== */
+/* FULL WIDTH */
 .main .block-container{
-    max-width: 100% !important;
-    padding-left: 2rem;
-    padding-right: 2rem;
-    padding-top: 0rem;
+    max-width:100% !important;
+    padding:0 2rem;
 }
 
-/* ==========================
-HEADINGS
-========================== */
+/* REMOVE HEADER */
+header{visibility:hidden;}
+
+/* HEADINGS */
 h1,h2,h3{
     font-family:'Sora', sans-serif;
     font-weight:700;
@@ -35,232 +35,60 @@ h1{font-size:44px;}
 h2{font-size:32px;}
 h3{font-size:22px;}
 
-/* ==========================
-BUTTONS
-========================== */
+/* BUTTONS */
 .stButton > button{
     border-radius:12px;
     padding:8px 22px;
     background:#6366f1;
     color:white;
     border:none;
+    transition:0.2s;
 }
 
 .stButton > button:hover{
     transform:translateY(-2px);
+    box-shadow:0 6px 20px rgba(99,102,241,0.35);
 }
 
-/* ==========================
-TABLE
-========================== */
-div[data-testid="stDataFrame"]{
-    border-radius:14px;
-    background:rgba(255,255,255,0.04);
-}
-
-/* ==========================
-PLOT
-========================== */
-.stPlotlyChart{
-    background:rgba(255,255,255,0.04);
-    border-radius:14px;
-}
-
-/* ==========================
-REMOVE HEADER
-========================== */
-header{
-    visibility:hidden;
-}
-
-</style>
-""", unsafe_allow_html=True)
-
-/* ======================================================
-IMPORT PROFESSIONAL FONTS
-====================================================== */
-
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700&display=swap');
-
-/* ======================================================
-GLOBAL STYLE
-====================================================== */
-
-html, body, [data-testid="stAppViewContainer"]{
-    font-family: 'Inter', sans-serif;
-    background-color: {"#0f172a" if theme=="dark" else "#ffffff"};
-    color: {"#e2e8f0" if theme=="dark" else "#1e293b"};
-    line-height:1.6;
-}
-
-
-st.markdown("""
-<style>
-
-/* ======================================================
-CENTERED RESEARCH LAYOUT
-====================================================== */
-
-.main .block-container{
-    max-width: 100% !important;
-    padding-left: 2rem;
-    padding-right: 2rem;
-    padding-top: 0rem;
-    padding-bottom: 2rem;
-}
-
-[data-testid="stVerticalBlock"]{
-    gap:16px;
-}
-
-</style>
-""", unsafe_allow_html=True)
-
-/* ======================================================
-HEADINGS
-====================================================== */
-
-st.markdown("""
-<style>
-
-/* HEADINGS */
-
-h1,h2,h3{
-    font-family:'Sora', sans-serif;
-    font-weight:700;
-}
-
-h1{font-size:44px;}
-h2{font-size:32px;}
-h3{font-size:22px;}
-
-</style>
-""", unsafe_allow_html=True)
-
-/* ======================================================
-TABS
-====================================================== */
-
-div[data-baseweb="tab-list"]{
-    gap:22px;
-}
-
-button[data-baseweb="tab"]{
-    font-family:'Inter', sans-serif;
-    font-size:16px;
-    font-weight:600;
-}
-
-/* ======================================================
-INPUTS & FASTA SEQUENCES
-====================================================== */
-
+/* INPUT */
 textarea, input{
-    font-family:'JetBrains Mono', monospace;
-    font-size:15px;
-    letter-spacing:1px;
     border-radius:12px;
+    font-family:'JetBrains Mono', monospace;
 }
 
-
-/* ======================================================
-DATA TABLES
-====================================================== */
-
+/* TABLE */
 div[data-testid="stDataFrame"]{
-    font-family:'IBM Plex Sans', sans-serif;
     border-radius:14px;
     background:rgba(255,255,255,0.04);
-    border:1px solid rgba(255,255,255,0.05);
 }
 
-
-/* Table header */
-
-div[data-testid="stDataFrame"] thead th{
-    font-weight:700;
-}
-
-
-/* Row hover */
-
-div[data-testid="stDataFrame"] tbody tr:hover{
-    background:rgba(255,255,255,0.05);
-}
-
-
-/* Highlight probability column */
-
-div[data-testid="stDataFrame"] div[role="gridcell"]:nth-child(3){
-    color:#818cf8;
-    font-weight:700;
-}
-
-
-/* ======================================================
-METRICS
-====================================================== */
-
-[data-testid="metric-container"]{
-    background:rgba(255,255,255,0.03);
-    border-radius:14px;
-    padding:14px;
-}
-
-
-/* ======================================================
-PLOT CONTAINERS
-====================================================== */
-
+/* PLOT */
 .stPlotlyChart{
-    background:rgba(255,255,255,0.03);
+    background:rgba(255,255,255,0.04);
     border-radius:14px;
     padding:10px;
 }
 
-
-/* ======================================================
-SCROLLBAR
-====================================================== */
-
-::-webkit-scrollbar{
-    width:8px;
+/* LEGEND BOX */
+.legend-box {
+    background: linear-gradient(135deg,#f8fafc,#eef2ff);
+    border-left: 6px solid #6366f1;
+    padding: 16px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    font-size: 14px;
 }
 
+/* SCROLLBAR */
+::-webkit-scrollbar{width:8px;}
 ::-webkit-scrollbar-thumb{
     background:#6366f1;
     border-radius:10px;
 }
 
-/* ======================================================
-REMOVE STREAMLIT HEADER
-====================================================== */
-
-header{
-    visibility:hidden;
-}
-
-st.markdown("""
-<style>
-
-/* FORCE FULL WIDTH */
-section.main > div {
-    max-width: 100% !important;
-}
-
-/* REMOVE SIDE GAPS */
-[data-testid="stAppViewContainer"] {
-    padding: 0;
-    margin: 0;
-}
-
-/* MAKE BLOCK FULL WIDTH */
-.block-container {
-    width: 100% !important;
-}
-
 </style>
 """, unsafe_allow_html=True)
+
 
 import numpy as np
 import pandas as pd
@@ -321,11 +149,11 @@ components.html("""
 
 .hero {
     position: relative;
-    .hero {
     width: 100vw;
     height: 100vh;
     margin-left: calc(-50vw + 50%);
     overflow: hidden;
+
     background:
         radial-gradient(circle at 30% 40%, #3b0764 0%, transparent 45%),
         radial-gradient(circle at 70% 60%, #1e1b4b 0%, transparent 50%),
@@ -333,10 +161,13 @@ components.html("""
 }
 
 canvas {
-    position: absolute;
-    top: 0;
-    left: 0;
+    position:absolute;
+    top:0;
+    left:0;
 }
+
+</style>
+""", height=950)
 
 .hero-content {
     position: absolute;
