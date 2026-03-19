@@ -244,6 +244,76 @@ div[data-testid="stDataFrame"] * {
     opacity: 1 !important;
 }
 
+/* ==========================
+FORCE LEGEND BOX DARK (FIX WHITE BOX)
+========================== */
+
+.legend-box {
+    background: linear-gradient(
+        135deg,
+        rgba(15,23,42,0.95),
+        rgba(2,6,23,0.95)
+    ) !important;
+
+    color: #f8fafc !important;
+
+    border: 1px solid rgba(99,102,241,0.35);
+    border-radius: 16px;
+
+    padding: 20px;
+    margin-bottom: 20px;
+
+    backdrop-filter: blur(12px);
+
+    box-shadow:
+        0 0 20px rgba(99,102,241,0.2),
+        inset 0 0 12px rgba(255,255,255,0.04);
+}
+
+/* TEXT INSIDE LEGEND */
+.legend-box * {
+    color: #f8fafc !important;
+}
+
+/* TITLE */
+.legend-title {
+    font-size: 18px;
+    font-weight: 700;
+
+    background: linear-gradient(90deg,#38bdf8,#a78bfa);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    margin-bottom: 12px;
+}
+
+/* ITEMS */
+.legend-item b {
+    color: #22d3ee !important;
+}
+
+/* ==========================
+DATAFRAME FULL DARK FIX
+========================== */
+
+div[data-testid="stDataFrame"] {
+    background: #020617 !important;
+}
+
+div[data-testid="stDataFrame"] table {
+    background: transparent !important;
+    color: #e2e8f0 !important;
+}
+
+div[data-testid="stDataFrame"] th {
+    background: rgba(99,102,241,0.15) !important;
+    color: #ffffff !important;
+}
+
+div[data-testid="stDataFrame"] td {
+    background: transparent !important;
+}
+
 </style>
 """, unsafe_allow_html=True)
 
