@@ -7,7 +7,7 @@ st.markdown("""
 /* INPUT BOX */
 
 textarea{
-    background-color: {"#1e293b" if theme=="dark" else "#ffffff"};
+    background-color: #1e293b;
     color: {"#e2e8f0" if theme=="dark" else "#1e293b"};
 }
 
