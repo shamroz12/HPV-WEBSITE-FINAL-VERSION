@@ -69,14 +69,50 @@ div[data-testid="stDataFrame"]{
     padding:10px;
 }
 
-/* LEGEND BOX */
+/* ==========================
+LEGEND / INTERPRETATION BOX (FIXED)
+========================== */
 .legend-box {
-    background: linear-gradient(135deg,#f8fafc,#eef2ff);
-    border-left: 6px solid #6366f1;
-    padding: 16px;
-    border-radius: 10px;
+    background: linear-gradient(
+        135deg,
+        rgba(2,6,23,0.95),
+        rgba(15,23,42,0.95)
+    ) !important;
+
+    border-left: 4px solid #22d3ee;
+    border-radius: 14px;
+
+    padding: 18px;
     margin-bottom: 15px;
+
+    backdrop-filter: blur(12px);
+
+    box-shadow: 0 0 20px rgba(34,211,238,0.15);
+}
+
+/* TITLE */
+.legend-title {
+    font-weight: 700;
+    font-size: 16px;
+    color: #67e8f9;   /* bright cyan */
+    margin-bottom: 10px;
+}
+
+/* TEXT ITEMS */
+.legend-item {
+    color: #e2e8f0 !important;  /* bright readable */
     font-size: 14px;
+    line-height: 1.7;
+}
+
+/* ICON HIGHLIGHT */
+.legend-item b {
+    color: #f1f5f9;
+}
+
+/* OPTIONAL: subtle hover glow */
+.legend-box:hover {
+    box-shadow: 0 0 25px rgba(34,211,238,0.35);
 }
 
 /* SCROLLBAR */
