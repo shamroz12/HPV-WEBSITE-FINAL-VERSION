@@ -1661,7 +1661,7 @@ COMPACT PREMIUM FOOTER
 <div class="footer">
     <span>HPV EPIPRED</span> • AI-based Epitope Prediction  
     <br>
-    © 2026 <span class="highlight">Shamroz Abrar</span>. All rights reserved.
+    © 2026 <span class="highlight">Shamroz Abrar</span> | All rights reserved.
 </div>
 
 """, unsafe_allow_html=True)
