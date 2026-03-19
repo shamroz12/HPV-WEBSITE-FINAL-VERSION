@@ -279,9 +279,6 @@ body {
 st.markdown("""
 <style>
 
-st.markdown("""
-<style>
-
 /* ==========================
 RESET (REMOVE FAKE BARS)
 ========================== */
