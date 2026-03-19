@@ -257,7 +257,7 @@ st.markdown("""
 <style>
 
 /* ==========================
-DEEP BACKGROUND (LIKE COGNIZANCE)
+DEEP BACKGROUND 
 ========================== */
 body {
     background: radial-gradient(
@@ -275,6 +275,100 @@ body {
 
 </style>
 """, unsafe_allow_html=True)
+
+st.markdown("""
+<style>
+
+/* ==========================
+GLOBAL CARD SYSTEM
+========================== */
+[data-testid="stVerticalBlock"] > div {
+
+    background: linear-gradient(
+        135deg,
+        rgba(15,23,42,0.85),
+        rgba(2,6,23,0.85)
+    );
+
+    border-radius: 18px;
+    padding: 18px;
+
+    border: 1px solid rgba(99,102,241,0.15);
+
+    box-shadow:
+        0 8px 30px rgba(0,0,0,0.4),
+        inset 0 0 10px rgba(255,255,255,0.02);
+
+    margin-bottom: 20px;
+}
+
+</style>
+""", unsafe_allow_html=True)
+
+st.markdown("""
+<style>
+
+/* TABLE LOOK PREMIUM */
+div[data-testid="stDataFrame"] {
+    background: transparent !important;
+    border: none;
+}
+
+/* HEADER */
+thead th {
+    color: #38bdf8 !important;
+    font-weight: 600;
+}
+
+/* ROWS */
+tbody tr {
+    background: rgba(15,23,42,0.6) !important;
+}
+
+/* HOVER */
+tbody tr:hover {
+    background: rgba(99,102,241,0.2) !important;
+}
+
+</style>
+""", unsafe_allow_html=True)
+
+st.markdown("""
+<style>
+
+/* HEADINGS LIKE COGNIZANCE */
+h2 {
+    font-size: 28px;
+    font-weight: 700;
+
+    background: linear-gradient(90deg,#38bdf8,#a78bfa);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    margin-bottom: 10px;
+}
+
+</style>
+""", unsafe_allow_html=True)
+
+st.markdown("""
+<style>
+
+/* SOFT GLOW SYSTEM */
+* {
+    transition: all 0.2s ease;
+}
+
+/* HOVER GLOW ON CARDS */
+[data-testid="stVerticalBlock"] > div:hover {
+    box-shadow:
+        0 0 40px rgba(34,211,238,0.2),
+        inset 0 0 15px rgba(255,255,255,0.05);
+}
+
+</style>
+""", unsafe_allow_html=True)
+
 
 import numpy as np
 import pandas as pd
