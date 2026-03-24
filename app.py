@@ -863,7 +863,7 @@ with tab1:
         "width": 1400,
         "scale": 5   # 🔥 HIGH QUALITY EXPORT
     }
-    
+        }
         
         # ==========================
         # TABLE TAB
