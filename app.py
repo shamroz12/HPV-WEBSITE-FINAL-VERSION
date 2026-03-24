@@ -1470,172 +1470,106 @@ with tab1:
                 title="Immunogenicity Score"
         )
         
-            # ==========================
-        # GENERATE PREMIUM PDF REPORT
+              # ==========================
+        # GENERATE PDF (TABLES ONLY)
         # ==========================
 
-        import io
-        import plotly.io as pio
-        from reportlab.platypus import *
-        from reportlab.lib import colors
-        from reportlab.lib.pagesizes import letter
-        from reportlab.lib.styles import getSampleStyleSheet
-
         pdf_buffer = io.BytesIO()
-
-        doc = SimpleDocTemplate(
-                pdf_buffer,
-                pagesize=letter,
-                rightMargin=40,
-                leftMargin=40,
-                topMargin=40,
-                bottomMargin=40
-        )
+        doc = SimpleDocTemplate(pdf_buffer, pagesize=letter)
 
         styles = getSampleStyleSheet()
         elements = []
 
-        # ==========================
         # TITLE
-        # ==========================
-
-        elements.append(Paragraph(
-                "<font size=24 color='#0a2540'><b>HPV EPIPRED</b></font>",
-                styles['Title']
-        ))
-
-        elements.append(Paragraph(
-                "<font size=12 color='#555555'>AI-based MHC-I Epitope Prediction Report</font>",
-                styles['Normal']
-        ))
-
+        elements.append(Paragraph("<b>HPV EPIPRED</b>", styles['Title']))
+        elements.append(Paragraph("AI-based MHC-I Epitope Prediction Report", styles['Normal']))
         elements.append(Spacer(1, 20))
 
-        # ==========================
-        # SUMMARY TABLE
-        # ==========================
-
+        # SUMMARY
         elements.append(Paragraph("<b>Prediction Summary</b>", styles['Heading2']))
         elements.append(Spacer(1, 10))
 
         summary_data = [
-                ["Metric", "Value"],
+                ["Metric","Value"],
                 ["Total peptides analysed", len(df)],
                 ["Predicted epitopes", len(epitope_df)],
                 ["Predicted non-epitopes", len(non_df)],
                 ["Prediction threshold", threshold]
         ]
 
-        summary_table = Table(summary_data)
+        elements.append(Table(summary_data))
+        elements.append(Spacer(1, 20))
 
-        summary_table.setStyle(TableStyle([
-                ("BACKGROUND",(0,0),(-1,0),"#0a2540"),
-                ("TEXTCOLOR",(0,0),(-1,0),"white"),
-                ("GRID",(0,0),(-1,-1),0.5,"grey"),
-                ("FONTNAME",(0,0),(-1,0),"Helvetica-Bold"),
-                ("ALIGN",(0,0),(-1,-1),"CENTER"),
-        ]))
-
-        elements.append(summary_table)
-        elements.append(Spacer(1, 25))
-
-        # ==========================
-        # TOP 10 EPITOPES
-        # ==========================
-
+        # TOP EPITOPES
         elements.append(Paragraph("<b>Top High-Confidence Epitopes</b>", styles['Heading2']))
         elements.append(Spacer(1, 10))
 
         top_data = [top10.columns.tolist()] + top10.values.tolist()
-
-        top_table = Table(top_data)
-
-        top_table.setStyle(TableStyle([
-                ("BACKGROUND",(0,0),(-1,0),"#2980b9"),
-                ("TEXTCOLOR",(0,0),(-1,0),"white"),
-                ("GRID",(0,0),(-1,-1),0.25,"grey"),
-                ("FONTNAME",(0,0),(-1,0),"Helvetica-Bold"),
-                ("ALIGN",(0,0),(-1,-1),"CENTER"),
-        ]))
-
-        elements.append(top_table)
+        elements.append(Table(top_data))
         elements.append(PageBreak())
 
-        # ==========================
-        # ALL EPITOPES TABLE
-        # ==========================
-
+        # ALL EPITOPES
         elements.append(Paragraph("<b>All Predicted Epitopes</b>", styles['Heading2']))
         elements.append(Spacer(1, 10))
 
         epi_data = [epitope_df.columns.tolist()] + epitope_df.values.tolist()
-        epi_table = Table(epi_data, repeatRows=1)
-
-        epi_table.setStyle(TableStyle([
-                ("GRID",(0,0),(-1,-1),0.25,"grey"),
-                ("BACKGROUND",(0,0),(-1,0),"#1abc9c"),
-                ("TEXTCOLOR",(0,0),(-1,0),"white"),
-        ]))
-
-        elements.append(epi_table)
+        elements.append(Table(epi_data))
         elements.append(PageBreak())
 
-        # ==========================
-        # NON-EPITOPES TABLE
-        # ==========================
-
+        # NON EPITOPES
         elements.append(Paragraph("<b>Non-Epitopes</b>", styles['Heading2']))
         elements.append(Spacer(1, 10))
 
         non_data = [non_df.columns.tolist()] + non_df.values.tolist()
-        non_table = Table(non_data, repeatRows=1)
+        elements.append(Table(non_data))
 
-        non_table.setStyle(TableStyle([
-                ("GRID",(0,0),(-1,-1),0.25,"grey"),
-                ("BACKGROUND",(0,0),(-1,0),"#e74c3c"),
-                ("TEXTCOLOR",(0,0),(-1,0),"white"),
-        ]))
-
-        elements.append(non_table)
-        elements.append(PageBreak())
-
-        # ==========================
-        # ADD REAL WEBSITE PLOTS
-        # ==========================
-
-        import plotly.io as pio
-
-        def add_plot(fig, title):
-                buffer = io.BytesIO()
-                pio.write_image(fig, buffer, format="png", scale=4)
-                buffer.seek(0)
-
-                elements.append(Paragraph(f"<b>{title}</b>", styles['Heading2']))
-                elements.append(Spacer(1, 10))
-                elements.append(Image(buffer, width=520, height=260))
-                elements.append(Spacer(1, 25))
-
-
-        # ✅ USE YOUR ACTUAL FIGURES (from Streamlit UI)
-
-        add_plot(fig_prob, "Epitope Probability Plot")
-        add_plot(fig_density, "Epitope Density Map")
-        add_plot(fig_landscape, "Epitope Landscape")
-        add_plot(fig_score, "Immunogenicity Score")
-        # ==========================
         # BUILD PDF
-        # ==========================
-
         doc.build(elements)
         pdf_buffer.seek(0)
 
-        st.markdown("### 📄 Download Analysis Report")
+        st.download_button(
+                label="📄 Download Tables Report",
+                data=pdf_buffer,
+                file_name="hpv_epipred_tables.pdf",
+                mime="application/pdf"
+        )
+
+        # ==========================
+        # GENERATE ZIP DOWNLOAD
+        # ==========================
+
+        import zipfile
+
+        zip_buffer = io.BytesIO()
+
+        with zipfile.ZipFile(zip_buffer, "w") as z:
+
+                # SAVE CSV FILES
+                z.writestr("top_epitopes.csv", top10.to_csv(index=False))
+                z.writestr("epitopes.csv", epitope_df.to_csv(index=False))
+                z.writestr("non_epitopes.csv", non_df.to_csv(index=False))
+
+                # SAVE PLOTS (FROM PLOTLY FIGURES)
+
+                import plotly.io as pio
+
+                def save_plot(fig, name):
+                        img_bytes = pio.to_image(fig, format="png", scale=3)
+                        z.writestr(name, img_bytes)
+
+                # IMPORTANT: these must exist in your app
+                save_plot(fig_prob, "probability_plot.png")
+                save_plot(fig_density, "density_plot.png")
+                save_plot(fig_landscape, "landscape_plot.png")
+                save_plot(fig_score, "immunogenicity_plot.png")
+
+        zip_buffer.seek(0)
 
         st.download_button(
-                label="⬇ Download HPV EPIPRED Scientific Report",
-                data=pdf_buffer,
-                file_name="hpv_epipred_report.pdf",
-                mime="application/pdf"
+                label="📦 Download Full Results (ZIP)",
+                data=zip_buffer,
+                file_name="hpv_epipred_results.zip",
+                mime="application/zip"
         )
         
 # ==========================
