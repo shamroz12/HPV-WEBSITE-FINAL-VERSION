@@ -1534,39 +1534,136 @@ with tab1:
                 mime="application/pdf"
         )
 
-        # ==========================
-        # GENERATE ZIP DOWNLOAD
+               # ==========================
+        # EXPORT ALL PLOTS (FIXED)
         # ==========================
 
         import zipfile
+        import plotly.io as pio
 
         zip_buffer = io.BytesIO()
 
+        # ==========================
+        # UNIVERSAL EXPORT FUNCTION
+        # ==========================
+
+        def export_plot(fig, title):
+
+                # APPLY SAME THEME AS WEBSITE
+                fig.update_layout(
+                        template="plotly_dark",
+
+                        paper_bgcolor="#020617",
+                        plot_bgcolor="#020617",
+
+                        font=dict(
+                                family="Inter",
+                                size=16,
+                                color="#e2e8f0"
+                        ),
+
+                        title=dict(
+                                text=title,
+                                x=0.5,
+                                font=dict(size=22, color="#38bdf8")
+                        ),
+
+                        xaxis=dict(
+                                showgrid=True,
+                                gridcolor="rgba(255,255,255,0.08)",
+                                zeroline=False
+                        ),
+
+                        yaxis=dict(
+                                showgrid=True,
+                                gridcolor="rgba(255,255,255,0.08)",
+                                zeroline=False
+                        )
+                )
+
+                # MAKE LINES CLEAR & PREMIUM
+                fig.update_traces(
+                        line=dict(width=3),
+                        marker=dict(size=6)
+                )
+
+                # HIGH RESOLUTION EXPORT
+                img_bytes = pio.to_image(
+                        fig,
+                        format="png",
+                        width=1400,
+                        height=800,
+                        scale=5
+                )
+
+                return img_bytes
+
+
+        # ==========================
+        # CREATE ZIP FILE
+        # ==========================
+
         with zipfile.ZipFile(zip_buffer, "w") as z:
 
-                # SAVE CSV FILES
+                # ==========================
+                # SAVE TABLES
+                # ==========================
+
                 z.writestr("top_epitopes.csv", top10.to_csv(index=False))
                 z.writestr("epitopes.csv", epitope_df.to_csv(index=False))
                 z.writestr("non_epitopes.csv", non_df.to_csv(index=False))
 
-                # SAVE PLOTS (FROM PLOTLY FIGURES)
 
-                import plotly.io as pio
+                # ==========================
+                # SAVE ALL PLOTS (YOUR TABS)
+                # ==========================
 
-                def save_plot(fig, name):
-                        img_bytes = pio.to_image(fig, format="png", scale=3)
-                        z.writestr(name, img_bytes)
+                # ⚠️ IMPORTANT: these variables MUST exist in your app
 
-                # IMPORTANT: these must exist in your app
-                save_plot(fig_prob, "probability_plot.png")
-                save_plot(fig_density, "density_plot.png")
-                save_plot(fig_landscape, "landscape_plot.png")
-                save_plot(fig_score, "immunogenicity_plot.png")
+                z.writestr(
+                        "probability_plot.png",
+                        export_plot(fig_prob, "Epitope Probability Plot")
+                )
+
+                z.writestr(
+                        "epitope_landscape.png",
+                        export_plot(fig_landscape, "Epitope Landscape")
+                )
+
+                z.writestr(
+                        "density_map.png",
+                        export_plot(fig_density, "Epitope Density Map")
+                )
+
+                z.writestr(
+                        "immunogenic_fingerprint.png",
+                        export_plot(fig_fingerprint, "Immunogenicity Fingerprint")
+                )
+
+                z.writestr(
+                        "immunogenic_score.png",
+                        export_plot(fig_score, "Immunogenic Score")
+                )
+
+                z.writestr(
+                        "epitope_atlas.png",
+                        export_plot(fig_atlas, "Epitope Atlas")
+                )
+
+                z.writestr(
+                        "competition_map.png",
+                        export_plot(fig_competition, "Epitope Competition Map")
+                )
+
 
         zip_buffer.seek(0)
 
+        # ==========================
+        # DOWNLOAD BUTTON
+        # ==========================
+
         st.download_button(
-                label="📦 Download Full Results (ZIP)",
+                label="📦 Download Full Results (Premium ZIP)",
                 data=zip_buffer,
                 file_name="hpv_epipred_results.zip",
                 mime="application/zip"
