@@ -1436,7 +1436,7 @@ with tab1:
         ]
     )
 
-                import plotly.express as px
+        import plotly.express as px
 
         # ==========================
         # CREATE PLOTLY FIGURES
