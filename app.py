@@ -853,6 +853,18 @@ with tab1:
                 "🔥 Epitope Competition Map"
         ])
 
+                config = {
+                "displaylogo": False,
+
+                "toImageButtonOptions": {
+                        "format": "png",
+                        "filename": "epipred_plot",
+                        "height": 800,
+                        "width": 1400,
+                        "scale": 5   # 🔥 HIGH QUALITY EXPORT
+                }
+        }
+        
         # ==========================
         # TABLE TAB
         # ==========================
@@ -993,8 +1005,7 @@ with tab1:
                         hovermode="x unified"
                 )
 
-                st.plotly_chart(fig, use_container_width=True)
-
+                st.plotly_chart(fig, use_container_width=True, config=config)
 
         # ==========================
         # EPITOPE LANDSCAPE TAB
@@ -1048,8 +1059,8 @@ with tab1:
                         )
                 )
 
-                st.plotly_chart(fig_land, use_container_width=True)
-
+               st.plotly_chart(fig_land, use_container_width=True, config=config)
+        
         # ==========================
         # EPITOPE DENSITY MAP TAB
         # ==========================
@@ -1106,7 +1117,7 @@ with tab1:
                         yaxis_title="Epitope Density"
                 )
 
-                st.plotly_chart(fig_density,use_container_width=True)
+                st.plotly_chart(fig_density, use_container_width=True, config=config)
 
        
         # IMMUNOGENICITY FINGERPRINT
@@ -1187,7 +1198,7 @@ with tab1:
                         height=500
                 )
 
-                st.plotly_chart(fig_radar, use_container_width=True)
+                st.plotly_chart(fig_radar, use_container_width=True, config=config)
             
         # ==========================
         # IMMUNOGENIC SCORE TAB
@@ -1229,7 +1240,7 @@ with tab1:
                         }
                 ))
 
-                st.plotly_chart(gauge,use_container_width=True)
+                st.plotly_chart(gauge, use_container_width=True, config=config)
 
                 st.metric("Peptides scanned",total_pep)
                 st.metric("Predicted epitopes",epi_count)
@@ -1325,7 +1336,7 @@ with tab1:
                         title="Stacked Epitope Atlas"
                 )
 
-                st.plotly_chart(fig_atlas, use_container_width=True)
+                st.plotly_chart(fig_atlas, use_container_width=True, config=config)
         
         # ==========================
         # EPITOPE COMPETITION HEATMAP
@@ -1402,8 +1413,8 @@ with tab1:
                         title="Epitope Competition Across Protein Sequence"
                 )
 
-                st.plotly_chart(fig, use_container_width=True)
-
+                st.plotly_chart(fig, use_container_width=True, config=config)
+            
                 st.markdown("---")
 
                 st.markdown("### 🏆 Dominant Immunogenic Regions")
@@ -1435,42 +1446,8 @@ with tab1:
             ("BOTTOMPADDING",(0,0),(-1,-1),6),
         ]
     )
-
-        import plotly.express as px
-
+            
         # ==========================
-        # CREATE PLOTLY FIGURES
-        # ==========================
-
-        fig_prob = px.line(
-                df,
-                x="Position",
-                y="Probability",
-                title="Epitope Probability"
-        )
-
-        fig_density = px.bar(
-                density_df,
-                x="Position",
-                y="Density",
-                title="Epitope Density"
-        )
-
-        fig_landscape = px.line(
-                df,
-                x="Position",
-                y="Probability",
-                title="Epitope Landscape"
-        )
-
-        fig_score = px.line(
-                df,
-                x="Position",
-                y="Probability",
-                title="Immunogenicity Score"
-        )
-        
-              # ==========================
         # GENERATE PDF (TABLES ONLY)
         # ==========================
 
@@ -1533,142 +1510,7 @@ with tab1:
                 file_name="hpv_epipred_tables.pdf",
                 mime="application/pdf"
         )
-
-               # ==========================
-        # EXPORT ALL PLOTS (FIXED)
-        # ==========================
-
-        import zipfile
-        import plotly.io as pio
-
-        zip_buffer = io.BytesIO()
-
-        # ==========================
-        # UNIVERSAL EXPORT FUNCTION
-        # ==========================
-
-        def export_plot(fig, title):
-
-                # APPLY SAME THEME AS WEBSITE
-                fig.update_layout(
-                        template="plotly_dark",
-
-                        paper_bgcolor="#020617",
-                        plot_bgcolor="#020617",
-
-                        font=dict(
-                                family="Inter",
-                                size=16,
-                                color="#e2e8f0"
-                        ),
-
-                        title=dict(
-                                text=title,
-                                x=0.5,
-                                font=dict(size=22, color="#38bdf8")
-                        ),
-
-                        xaxis=dict(
-                                showgrid=True,
-                                gridcolor="rgba(255,255,255,0.08)",
-                                zeroline=False
-                        ),
-
-                        yaxis=dict(
-                                showgrid=True,
-                                gridcolor="rgba(255,255,255,0.08)",
-                                zeroline=False
-                        )
-                )
-
-                # MAKE LINES CLEAR & PREMIUM
-                fig.update_traces(
-                        line=dict(width=3),
-                        marker=dict(size=6)
-                )
-
-                # HIGH RESOLUTION EXPORT
-                img_bytes = pio.to_image(
-                        fig,
-                        format="png",
-                        width=1400,
-                        height=800,
-                        scale=5
-                )
-
-                return img_bytes
-
-
-        # ==========================
-        # CREATE ZIP FILE
-        # ==========================
-
-        with zipfile.ZipFile(zip_buffer, "w") as z:
-
-                # ==========================
-                # SAVE TABLES
-                # ==========================
-
-                z.writestr("top_epitopes.csv", top10.to_csv(index=False))
-                z.writestr("epitopes.csv", epitope_df.to_csv(index=False))
-                z.writestr("non_epitopes.csv", non_df.to_csv(index=False))
-
-
-                # ==========================
-                # SAVE ALL PLOTS (YOUR TABS)
-                # ==========================
-
-                # ⚠️ IMPORTANT: these variables MUST exist in your app
-
-                z.writestr(
-                        "probability_plot.png",
-                        export_plot(fig_prob, "Epitope Probability Plot")
-                )
-
-                z.writestr(
-                        "epitope_landscape.png",
-                        export_plot(fig_landscape, "Epitope Landscape")
-                )
-
-                z.writestr(
-                        "density_map.png",
-                        export_plot(fig_density, "Epitope Density Map")
-                )
-
-                z.writestr(
-                        "immunogenic_fingerprint.png",
-                        export_plot(fig_fingerprint, "Immunogenicity Fingerprint")
-                )
-
-                z.writestr(
-                        "immunogenic_score.png",
-                        export_plot(fig_score, "Immunogenic Score")
-                )
-
-                z.writestr(
-                        "epitope_atlas.png",
-                        export_plot(fig_atlas, "Epitope Atlas")
-                )
-
-                z.writestr(
-                        "competition_map.png",
-                        export_plot(fig_competition, "Epitope Competition Map")
-                )
-
-
-        zip_buffer.seek(0)
-
-        # ==========================
-        # DOWNLOAD BUTTON
-        # ==========================
-
-        st.download_button(
-                label="📦 Download Full Results (Premium ZIP)",
-                data=zip_buffer,
-                file_name="hpv_epipred_results.zip",
-                mime="application/zip"
-        )
-        
+      
 # ==========================
 # FEATURE NAMES FOR EXPLAINABILITY
 # ==========================
