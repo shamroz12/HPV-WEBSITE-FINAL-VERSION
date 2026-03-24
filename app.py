@@ -1600,8 +1600,10 @@ with tab1:
         elements.append(PageBreak())
 
         # ==========================
-        # PLOTLY FIGURES (REAL WEBSITE OUTPUT)
+        # ADD REAL WEBSITE PLOTS
         # ==========================
+
+        import plotly.io as pio
 
         def add_plot(fig, title):
                 buffer = io.BytesIO()
@@ -1613,11 +1615,13 @@ with tab1:
                 elements.append(Image(buffer, width=520, height=260))
                 elements.append(Spacer(1, 25))
 
+
+        # ✅ USE YOUR ACTUAL FIGURES (from Streamlit UI)
+
         add_plot(fig_prob, "Epitope Probability Plot")
         add_plot(fig_density, "Epitope Density Map")
         add_plot(fig_landscape, "Epitope Landscape")
         add_plot(fig_score, "Immunogenicity Score")
-
         # ==========================
         # BUILD PDF
         # ==========================
