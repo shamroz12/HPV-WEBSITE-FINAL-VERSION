@@ -853,17 +853,17 @@ with tab1:
                 "🔥 Epitope Competition Map"
         ])
 
-                config = {
-                "displaylogo": False,
+        config = {
+        "displaylogo": False,
 
-                "toImageButtonOptions": {
-                        "format": "png",
-                        "filename": "epipred_plot",
-                        "height": 800,
-                        "width": 1400,
-                        "scale": 5   # 🔥 HIGH QUALITY EXPORT
-                }
-        }
+        "toImageButtonOptions": {
+        "format": "png",
+        "filename": "epipred_plot",
+        "height": 800,
+        "width": 1400,
+        "scale": 5   # 🔥 HIGH QUALITY EXPORT
+    }
+    
         
         # ==========================
         # TABLE TAB
