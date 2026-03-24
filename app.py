@@ -1059,7 +1059,7 @@ with tab1:
                         )
                 )
 
-               st.plotly_chart(fig_land, use_container_width=True, config=config)
+        st.plotly_chart(fig_land, use_container_width=True, config=config)
         
         # ==========================
         # EPITOPE DENSITY MAP TAB
