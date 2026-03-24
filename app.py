@@ -1436,11 +1436,13 @@ with tab1:
         ]
     )
     
-        # ==========================
-        # GENERATE PDF REPORT
-        # ==========================
+# ==========================
+# GENERATE PDF REPORT
+# ==========================
 
         pdf_buffer = io.BytesIO()
+
+        doc = SimpleDocTemplate(pdf_buffer, pagesize=letter)
 
         styles = getSampleStyleSheet()
         elements = []
