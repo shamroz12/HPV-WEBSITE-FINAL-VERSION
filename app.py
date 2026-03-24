@@ -1573,6 +1573,11 @@ with tab1:
         elements.append(Image(density_buffer, width=450, height=220))
         
         st.markdown("### 📄 Download Analysis Report")
+        
+        doc = SimpleDocTemplate(pdf_buffer, pagesize=letter)
+        doc.build(elements)
+        pdf_buffer.seek(0)
+
 
         st.download_button(
                 label="⬇ Download HPV EPIPRED Scientific Report",
@@ -1580,7 +1585,7 @@ with tab1:
                 file_name="hpv_epipred_report.pdf",
                 mime="application/pdf"
         )
-
+        
 # ==========================
 # FEATURE NAMES FOR EXPLAINABILITY
 # ==========================
