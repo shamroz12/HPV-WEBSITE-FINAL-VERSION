@@ -1436,9 +1436,16 @@ with tab1:
         ]
     )
     
-        # ==========================
+                # ==========================
         # GENERATE PDF REPORT
         # ==========================
+
+        import io
+        import matplotlib.pyplot as plt
+        from reportlab.platypus import *
+        from reportlab.lib import colors
+        from reportlab.lib.pagesizes import letter
+        from reportlab.lib.styles import getSampleStyleSheet
 
         pdf_buffer = io.BytesIO()
 
@@ -1446,6 +1453,19 @@ with tab1:
 
         styles = getSampleStyleSheet()
         elements = []
+
+        # ==========================
+        # GLOBAL PLOT SETTINGS
+        # ==========================
+
+        plt.rcParams.update({
+                "figure.dpi": 300,
+                "savefig.dpi": 300,
+                "font.size": 12,
+                "axes.titlesize": 14,
+                "axes.labelsize": 12,
+                "lines.linewidth": 2.5
+        })
 
         # ==========================
         # TITLE
@@ -1511,8 +1531,6 @@ with tab1:
         ]))
 
         elements.append(top_table)
-        elements.append(Spacer(1,25))
-
         elements.append(PageBreak())
 
         # ==========================
@@ -1563,21 +1581,22 @@ with tab1:
 
         prob_buffer = io.BytesIO()
 
-        plt.figure(figsize=(6,3))
-        plt.plot(df["Position"], df["Probability"], color="navy")
+        plt.figure(figsize=(10,4), facecolor="white")
+        plt.plot(df["Position"], df["Probability"], color="#1f77b4")
         plt.axhline(y=threshold, color="red", linestyle="--")
+        plt.grid(alpha=0.3)
         plt.xlabel("Protein Position")
         plt.ylabel("Epitope Probability")
-        plt.title("Epitope Probability Across Protein")
+        plt.title("Epitope Probability", weight="bold")
 
-        plt.savefig(prob_buffer, format="png", dpi=300, bbox_inches="tight")
+        plt.savefig(prob_buffer, format="png", bbox_inches="tight")
         plt.close()
 
         prob_buffer.seek(0)
 
         elements.append(Paragraph("<b>Epitope Probability Plot</b>", styles['Heading2']))
         elements.append(Spacer(1,10))
-        elements.append(Image(prob_buffer, width=450, height=220))
+        elements.append(Image(prob_buffer, width=520, height=260))
         elements.append(PageBreak())
 
         # ==========================
@@ -1586,109 +1605,65 @@ with tab1:
 
         density_buffer = io.BytesIO()
 
-        plt.figure(figsize=(6,3))
-        plt.bar(density_df["Position"], density_df["Density"], color="purple")
+        plt.figure(figsize=(10,4), facecolor="white")
+        plt.bar(density_df["Position"], density_df["Density"], color="#7b2cbf")
+        plt.grid(axis='y', alpha=0.3)
         plt.xlabel("Protein Position")
-        plt.ylabel("Epitope Density")
-        plt.title("Epitope Density Map")
+        plt.ylabel("Density")
+        plt.title("Epitope Density Map", weight="bold")
 
-        plt.savefig(density_buffer, format="png", dpi=300, bbox_inches="tight")
+        plt.savefig(density_buffer, format="png", bbox_inches="tight")
         plt.close()
 
         density_buffer.seek(0)
 
         elements.append(Paragraph("<b>Epitope Density Map</b>", styles['Heading2']))
         elements.append(Spacer(1,10))
-        elements.append(Image(density_buffer, width=450, height=220))
+        elements.append(Image(density_buffer, width=520, height=260))
+        elements.append(PageBreak())
 
         # ==========================
-        # EPITOPE LANDSCAPE
+        # LANDSCAPE
         # ==========================
 
         landscape_buffer = io.BytesIO()
 
-        plt.figure(figsize=(6,3))
+        plt.figure(figsize=(10,4), facecolor="white")
         plt.plot(df["Position"], df["Probability"], color="green")
         plt.fill_between(df["Position"], df["Probability"], alpha=0.3)
-        plt.xlabel("Protein Position")
-        plt.ylabel("Probability")
-        plt.title("Epitope Landscape")
+        plt.grid(alpha=0.3)
+        plt.title("Epitope Landscape", weight="bold")
 
-        plt.savefig(landscape_buffer, format="png", dpi=300, bbox_inches="tight")
+        plt.savefig(landscape_buffer, format="png", bbox_inches="tight")
         plt.close()
 
         landscape_buffer.seek(0)
 
-        elements.append(PageBreak())
-        elements.append(Paragraph("<b>Figure 3: Epitope Landscape</b>", styles['Heading2']))
+        elements.append(Paragraph("<b>Epitope Landscape</b>", styles['Heading2']))
         elements.append(Spacer(1,10))
-        elements.append(Image(landscape_buffer, width=450, height=220))
+        elements.append(Image(landscape_buffer, width=520, height=260))
+        elements.append(PageBreak())
 
         # ==========================
-        # IMMUNOGENICITY SCORE
+        # SCORE DISTRIBUTION
         # ==========================
 
         score_buffer = io.BytesIO()
 
-        plt.figure(figsize=(6,3))
-        plt.hist(df["Probability"], bins=30, color="orange")
-        plt.xlabel("Score")
-        plt.ylabel("Frequency")
-        plt.title("Immunogenicity Score Distribution")
+        plt.figure(figsize=(10,4), facecolor="white")
+        plt.hist(df["Probability"], bins=40, color="#f77f00")
+        plt.grid(alpha=0.3)
+        plt.title("Immunogenicity Score", weight="bold")
 
-        plt.savefig(score_buffer, format="png", dpi=300, bbox_inches="tight")
+        plt.savefig(score_buffer, format="png", bbox_inches="tight")
         plt.close()
 
         score_buffer.seek(0)
 
-        elements.append(PageBreak())
-        elements.append(Paragraph("<b>Figure 4: Immunogenicity Score Distribution</b>", styles['Heading2']))
+        elements.append(Paragraph("<b>Immunogenicity Score</b>", styles['Heading2']))
         elements.append(Spacer(1,10))
-        elements.append(Image(score_buffer, width=450, height=220)) 
-
-        # ==========================
-        # EPITOPE ATLAS
-        # ==========================
-
-        atlas_buffer = io.BytesIO()
-
-        plt.figure(figsize=(6,2))
-        plt.imshow([df["Probability"]], aspect="auto", cmap="viridis")
-        plt.colorbar(label="Probability")
-        plt.title("Epitope Atlas")
-
-        plt.savefig(atlas_buffer, format="png", dpi=300, bbox_inches="tight")
-        plt.close()
-
-        atlas_buffer.seek(0)
-
+        elements.append(Image(score_buffer, width=520, height=260))
         elements.append(PageBreak())
-        elements.append(Paragraph("<b>Figure 5: Epitope Atlas</b>", styles['Heading2']))
-        elements.append(Spacer(1,10))
-        elements.append(Image(atlas_buffer, width=450, height=120))
-
-        # ==========================
-        # EPITOPE COMPETITION MAP
-        # ==========================
-
-        comp_buffer = io.BytesIO()
-
-        plt.figure(figsize=(6,3))
-        plt.scatter(df["Position"], df["Probability"], c=df["Probability"], cmap="coolwarm")
-        plt.colorbar(label="Competition Intensity")
-        plt.xlabel("Position")
-        plt.ylabel("Score")
-        plt.title("Epitope Competition Map")
-
-        plt.savefig(comp_buffer, format="png", dpi=300, bbox_inches="tight")
-        plt.close()
-
-        comp_buffer.seek(0)
-
-        elements.append(PageBreak())
-        elements.append(Paragraph("<b>Figure 6: Epitope Competition Map</b>", styles['Heading2']))
-        elements.append(Spacer(1,10))
-        elements.append(Image(comp_buffer, width=450, height=220))
 
         # ==========================
         # BUILD PDF
@@ -1698,7 +1673,7 @@ with tab1:
         pdf_buffer.seek(0)
 
         # ==========================
-        # DOWNLOAD
+        # DOWNLOAD BUTTON
         # ==========================
 
         st.markdown("### 📄 Download Analysis Report")
