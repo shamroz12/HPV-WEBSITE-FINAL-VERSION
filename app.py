@@ -1440,153 +1440,163 @@ with tab1:
 # GENERATE PDF REPORT
 # ==========================
 
-        pdf_buffer = io.BytesIO()
+pdf_buffer = io.BytesIO()
+doc = SimpleDocTemplate(pdf_buffer, pagesize=letter)
 
-        doc = SimpleDocTemplate(pdf_buffer, pagesize=letter)
+styles = getSampleStyleSheet()
+elements = []
 
-        styles = getSampleStyleSheet()
-        elements = []
+# ==========================
+# TITLE
+# ==========================
 
-        # ==========================
-        # TITLE
-        # ==========================
+elements.append(Paragraph("<font size=22 color='darkblue'><b>HPV EPIPRED</b></font>", styles['Title']))
+elements.append(Paragraph("<font size=14>AI-based MHC-I Epitope Prediction Report</font>", styles['Normal']))
+elements.append(Spacer(1,25))
 
-        elements.append(Paragraph(
-                "<font size=22 color='darkblue'><b>HPV EPIPRED</b></font>",
-                styles['Title']
-        ))
+# ==========================
+# SUMMARY
+# ==========================
 
-        elements.append(Paragraph(
-                "<font size=14>AI-based MHC-I Epitope Prediction Report</font>",
-                styles['Normal']
-        ))
+elements.append(Paragraph("<b>Prediction Summary</b>", styles['Heading2']))
+elements.append(Spacer(1,12))
 
-        elements.append(Spacer(1,25))
+summary_data = [
+    ["Metric","Value"],
+    ["Total peptides analysed", len(df)],
+    ["Predicted epitopes", len(epitope_df)],
+    ["Predicted non-epitopes", len(non_df)],
+    ["Prediction threshold", threshold]
+]
 
-        # ==========================
-        # SUMMARY
-        # ==========================
+summary_table = Table(summary_data)
+summary_table.setStyle(TableStyle([
+    ("BACKGROUND",(0,0),(-1,0),colors.darkblue),
+    ("TEXTCOLOR",(0,0),(-1,0),colors.white),
+    ("GRID",(0,0),(-1,-1),1,colors.grey),
+    ("FONTNAME",(0,0),(-1,0),"Helvetica-Bold"),
+    ("ALIGN",(0,0),(-1,-1),"CENTER")
+]))
 
-        elements.append(Paragraph("<b>Prediction Summary</b>"))
-        elements.append(Spacer(1,12))
+elements.append(summary_table)
+elements.append(Spacer(1,25))
 
-        summary_data = [
-                ["Metric","Value"],
-                ["Total peptides analysed", len(df)],
-                ["Predicted epitopes", len(epitope_df)],
-                ["Predicted non-epitopes", len(non_df)],
-                ["Prediction threshold", threshold]
-        ]
+# ==========================
+# TOP EPITOPES
+# ==========================
 
-        summary_table = Table(summary_data)
+elements.append(Paragraph("<b>Top High-Confidence Epitopes</b>", styles['Heading2']))
+elements.append(Spacer(1,10))
 
-        summary_table.setStyle(TableStyle([
-                ("BACKGROUND",(0,0),(-1,0),colors.darkblue),
-                ("TEXTCOLOR",(0,0),(-1,0),colors.white),
-                ("GRID",(0,0),(-1,-1),1,colors.grey),
-                ("FONTNAME",(0,0),(-1,0),"Helvetica-Bold"),
-                ("ALIGN",(0,0),(-1,-1),"CENTER")
-        ]))
+top_table_data = [top10.columns.tolist()] + top10.values.tolist()
 
-        elements.append(summary_table)
-        elements.append(Spacer(1,25))
-
-        # ==========================
-        # TOP EPITOPES TABLE
-        # ==========================
-
-        elements.append(Paragraph("<b>Top High-Confidence Epitopes</b>", styles['Heading2']))
-        elements.append(Spacer(1,10))
-
-        top_table_data = [top10.columns.tolist()] + top10.values.tolist()
-
-        top_table = Table(top_table_data)
-
-        summary_table.setStyle(TableStyle([
+top_table = Table(top_table_data)
+top_table.setStyle(TableStyle([
     ("BACKGROUND",(0,0),(-1,0),"#2980b9"),
     ("TEXTCOLOR",(0,0),(-1,0),"white"),
     ("GRID",(0,0),(-1,-1),0.5,"grey"),
     ("FONTNAME",(0,0),(-1,0),"Helvetica-Bold"),
     ("ALIGN",(0,0),(-1,-1),"CENTER"),
-        ]))
+]))
 
-        elements.append(top_table)
-        elements.append(Spacer(1,30))
+elements.append(top_table)
+elements.append(Spacer(1,25))
 
-        elements.append(PageBreak())
+# ==========================
+# FULL EPITOPE TABLE
+# ==========================
 
-        # ==========================
-        # EMBED PROBABILITY PLOT
-        # ==========================
+elements.append(PageBreak())
+elements.append(Paragraph("<b>All Predicted Epitopes</b>", styles['Heading2']))
+elements.append(Spacer(1,10))
 
-        prob_buffer = io.BytesIO()
+epi_data = [epitope_df.columns.tolist()] + epitope_df.values.tolist()
+epi_table = Table(epi_data)
 
-        plt.figure(figsize=(6,3))
-        plt.plot(df["Position"], df["Probability"], color="navy")
-        plt.axhline(y=threshold, color="red", linestyle="--")
-        plt.xlabel("Protein Position")
-        plt.ylabel("Epitope Probability")
-        plt.title("Epitope Probability Across Protein")
+epi_table.setStyle(TableStyle([
+    ("GRID",(0,0),(-1,-1),0.25,colors.grey),
+    ("BACKGROUND",(0,0),(-1,0),"#27ae60"),
+    ("TEXTCOLOR",(0,0),(-1,0),"white"),
+]))
 
-        plt.savefig(prob_buffer, format="png", dpi=300, bbox_inches="tight")
-        plt.close()
+elements.append(epi_table)
 
-        prob_buffer.seek(0)
+# ==========================
+# FULL NON-EPITOPE TABLE
+# ==========================
 
-        elements.append(Spacer(1,20))
-        elements.append(Paragraph("<b>Epitope Probability Plot</b>", styles['Heading2']))
-        elements.append(Image(prob_buffer, width=450, height=220))
+elements.append(PageBreak())
+elements.append(Paragraph("<b>All Non-Epitopes</b>", styles['Heading2']))
+elements.append(Spacer(1,10))
 
+non_data = [non_df.columns.tolist()] + non_df.values.tolist()
+non_table = Table(non_data)
 
-        # ==========================
-        # EMBED DENSITY MAP
-        # ==========================
+non_table.setStyle(TableStyle([
+    ("GRID",(0,0),(-1,-1),0.25,colors.grey),
+    ("BACKGROUND",(0,0),(-1,0),"#c0392b"),
+    ("TEXTCOLOR",(0,0),(-1,0),"white"),
+]))
 
-        density_buffer = io.BytesIO()
+elements.append(non_table)
 
-        plt.figure(figsize=(6,3))
-        plt.bar(density_df["Position"], density_df["Density"], color="purple")
-        plt.xlabel("Protein Position")
-        plt.ylabel("Epitope Density")
-        plt.title("Epitope Density Map")
+# ==========================
+# PLOTS (ONLY ONCE)
+# ==========================
 
-        plt.savefig(density_buffer, format="png", dpi=300, bbox_inches="tight")
-        plt.close()
+elements.append(PageBreak())
 
-        density_buffer.seek(0)
+# Probability plot
+prob_buffer = io.BytesIO()
+plt.figure(figsize=(6,3))
+plt.plot(df["Position"], df["Probability"], color="navy")
+plt.axhline(y=threshold, color="red", linestyle="--")
+plt.xlabel("Protein Position")
+plt.ylabel("Epitope Probability")
+plt.title("Epitope Probability Across Protein")
+plt.savefig(prob_buffer, format="png", dpi=300, bbox_inches="tight")
+plt.close()
+prob_buffer.seek(0)
 
-        elements.append(Spacer(1,20))
-        elements.append(Paragraph("<b>Epitope Density Map</b>", styles['Heading2']))
-        elements.append(Image(density_buffer, width=450, height=220))
-        
-      
-        # ==========================
-        # ADD PLOTS TO PDF
-        # ==========================
+elements.append(Paragraph("<b>Epitope Probability Plot</b>", styles['Heading2']))
+elements.append(Spacer(1,10))
+elements.append(Image(prob_buffer, width=450, height=220))
 
-        elements.append(Spacer(1,25))
-        elements.append(Paragraph("<b>Epitope Probability Plot</b>", styles['Heading2']))
-        elements.append(Spacer(1,10))
-        elements.append(Image(prob_buffer, width=450, height=220))
+# Density plot
+density_buffer = io.BytesIO()
+plt.figure(figsize=(6,3))
+plt.bar(density_df["Position"], density_df["Density"], color="purple")
+plt.xlabel("Protein Position")
+plt.ylabel("Epitope Density")
+plt.title("Epitope Density Map")
+plt.savefig(density_buffer, format="png", dpi=300, bbox_inches="tight")
+plt.close()
+density_buffer.seek(0)
 
-        elements.append(Spacer(1,25))
-        elements.append(Paragraph("<b>Epitope Density Map</b>", styles['Heading2']))
-        elements.append(Spacer(1,10))
-        elements.append(Image(density_buffer, width=450, height=220))
-        
-        st.markdown("### 📄 Download Analysis Report")
-        
-        doc = SimpleDocTemplate(pdf_buffer, pagesize=letter)
-        doc.build(elements)
-        pdf_buffer.seek(0)
+elements.append(Spacer(1,25))
+elements.append(Paragraph("<b>Epitope Density Map</b>", styles['Heading2']))
+elements.append(Spacer(1,10))
+elements.append(Image(density_buffer, width=450, height=220))
 
+# ==========================
+# BUILD PDF
+# ==========================
 
-        st.download_button(
-                label="⬇ Download HPV EPIPRED Scientific Report",
-                data=pdf_buffer,
-                file_name="hpv_epipred_report.pdf",
-                mime="application/pdf"
-        )
+doc.build(elements)
+pdf_buffer.seek(0)
+
+# ==========================
+# DOWNLOAD
+# ==========================
+
+st.markdown("### 📄 Download Analysis Report")
+
+st.download_button(
+    label="⬇ Download HPV EPIPRED Scientific Report",
+    data=pdf_buffer.getvalue(),   # 🔥 FIXED
+    file_name="hpv_epipred_report.pdf",
+    mime="application/pdf"
+)
         
 # ==========================
 # FEATURE NAMES FOR EXPLAINABILITY
