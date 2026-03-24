@@ -1435,6 +1435,41 @@ with tab1:
             ("BOTTOMPADDING",(0,0),(-1,-1),6),
         ]
     )
+
+                import plotly.express as px
+
+        # ==========================
+        # CREATE PLOTLY FIGURES
+        # ==========================
+
+        fig_prob = px.line(
+                df,
+                x="Position",
+                y="Probability",
+                title="Epitope Probability"
+        )
+
+        fig_density = px.bar(
+                density_df,
+                x="Position",
+                y="Density",
+                title="Epitope Density"
+        )
+
+        fig_landscape = px.line(
+                df,
+                x="Position",
+                y="Probability",
+                title="Epitope Landscape"
+        )
+
+        fig_score = px.line(
+                df,
+                x="Position",
+                y="Probability",
+                title="Immunogenicity Score"
+        )
+        
             # ==========================
         # GENERATE PREMIUM PDF REPORT
         # ==========================
